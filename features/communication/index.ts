@@ -1,0 +1,7 @@
+export { CommunicationProvider, useCommunication } from './CommunicationContext'
+export { CommunicationHeader } from './components/CommunicationHeader'
+export { SmsDashboard } from './components/tabs/SmsDashboard'
+export { WeeklyReporting } from './components/tabs/WeeklyReporting'
+export { SmsHistory } from './components/tabs/SmsHistory'
+export { InboundMessages } from './components/tabs/InboundMessages'
+export type { CommunicationTab } from './types'

@@ -1,0 +1,47 @@
+/* DataGrid override layer — preserves the legacy table look across themes. */
+
+/* Within the pinned-left header, only suppress dividers BETWEEN internal
+ * pinned columns (e.g. action menu <-> checkbox). The divider on the LAST
+ * pinned header cell (checkbox <-> first data column) stays so the header
+ * shows a consistent set of dividers across all columns. */
+.gro-data-grid .ag-pinned-left-header .ag-header-cell:not(:last-child)::after {
+  display: none !important;
+}
+
+/* Strip the full-height pinned-section boundary line. AG Grid normally adds
+ * a `border-right` on the pinned-left container in both the header and the
+ * body, which renders a full-height line that doesn't match the half-height
+ * `headerColumnBorder` between data columns. Remove it so that:
+ *   - In the header: only the half-height `::after` divider on the last
+ *     pinned cell is left, matching the inter-column dividers.
+ *   - In the body: no vertical line at the boundary at all. */
+.gro-data-grid .ag-pinned-left-header,
+.gro-data-grid .ag-pinned-left-cols-container,
+.gro-data-grid .ag-cell-last-left-pinned:not(.ag-cell-range-right) {
+  border-right: none !important;
+}
+
+
+/* Selected row tint for tables that drive selection through external state
+ * (e.g. PackagesTable, which manages selectedIds in PackagesContext rather
+ * than using AG Grid's row selection). */
+.gro-data-grid .ag-row.gro-row-selected {
+  background-color: hsl(var(--primary-100) / 0.4) !important;
+}
+
+.dark .gro-data-grid .ag-row.gro-row-selected {
+  background-color: hsl(var(--primary-100) / 0.55) !important;
+}
+
+/* Right-aligned header label for numeric columns. */
+.gro-data-grid .ag-header-cell.gro-header-right .ag-header-cell-label {
+  justify-content: flex-end;
+}
+.gro-data-grid .ag-header-cell.gro-header-center .ag-header-cell-label {
+  justify-content: center;
+}
+
+/* Empty-state spacing matches the legacy 12-row equivalent of py-12. */
+.gro-data-grid[data-empty='true'] {
+  min-height: 96px;
+}
