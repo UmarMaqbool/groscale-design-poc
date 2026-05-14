@@ -4,21 +4,33 @@
 
 @import 'leaflet/dist/leaflet.css';
 
-/*
- * GroScale Design Tokens — shadcn/ui conformant
- * Brand color: #79B26B (GroScale green)
- * Surface tokens & dark theme follow shadcn conventions:
- * https://ui.shadcn.com/docs/theming#list-of-variables
- */
+/* =============================================================================
+ * GroScale Design Tokens
+ * =============================================================================
+ *
+ * Two themes:
+ *   :root  → LIGHT mode (default)   — Figma "Portal Light" spec
+ *   .dark  → DARK  mode             — Marketplace MVP spec + portal feedback
+ *
+ * Values are HSL channels only (`H S% L%`) so Tailwind can compose alpha
+ * (e.g. `bg-primary/40`). Wrap with `hsl(var(--token))` in the Tailwind config.
+ *
+ * Adding a new token? Add it to BOTH blocks so utilities resolve in either
+ * theme. Then expose it in `tailwind.config.ts`.
+ * ========================================================================== */
 
 @layer base {
+  /* ───────────────────────────────────────────────────────────────────────
+   * LIGHT — :root
+   * ─────────────────────────────────────────────────────────────────────── */
   :root {
-    /* ─── Brand: GroScale Green ───────────────────── */
-    --primary: 109 31% 56%; /* #79B26B */
+    /* ─── Brand: GroScale Green ─────────────────────────────────────── */
+    --primary: 109 31% 56%;        /* #79B26B */
     --primary-foreground: 0 0% 100%;
+    --primary-bright: 140 60% 53%; /* #3ecf6e — hover/active accent */
 
     --primary-50: 109 35% 94%;
-    --primary-100: 110 30% 89%; /* #EBF3E9 — Figma "Secondary BG Color" */
+    --primary-100: 110 30% 89%;    /* #EBF3E9 — Figma "Secondary BG" */
     --primary-200: 109 32% 80%;
     --primary-300: 109 32% 70%;
     --primary-400: 109 31% 63%;
@@ -28,49 +40,52 @@
     --primary-800: 109 38% 26%;
     --primary-900: 109 42% 16%;
 
-    /* ─── Surface ─────────────────────────────────── */
-    --background: 0 0% 94%; /* #EFEFEF — Figma "BG Color" */
-    --foreground: 220 13% 13%; /* #1c2024 */
+    /* ─── Surface ───────────────────────────────────────────────────── */
+    --background: 0 0% 94%;        /* #EFEFEF — Figma "BG Color" */
+    --foreground: 220 13% 13%;     /* #1c2024 */
 
     --card: 0 0% 100%;
     --card-foreground: 220 13% 13%;
+    --card-alt: 0 0% 98%;          /* #FAFAFA — neutral surface */
 
     --popover: 0 0% 100%;
     --popover-foreground: 220 13% 13%;
 
-    /* ─── Semantic ────────────────────────────────── */
+    /* ─── Semantic ──────────────────────────────────────────────────── */
     --secondary: 220 14% 96%;
     --secondary-foreground: 220 13% 13%;
 
     --muted: 220 14% 96%;
-    --muted-foreground: 220 9% 46%;
+    --muted-foreground: 220 9% 46%; /* #6A7282 — secondary text */
 
-    --accent: 110 30% 89%;
+    --text-tertiary: 220 9% 60%;    /* #99A1AF — caption / metadata */
+
+    --accent: 110 30% 89%;          /* primary-100 — unified hover surface */
     --accent-foreground: 109 35% 36%;
 
-    --destructive: 0 84% 47%; /* #E7000B */
+    --destructive: 0 84% 47%;       /* #E7000B */
     --destructive-foreground: 0 0% 100%;
 
-    --success: 141 75% 45%; /* #05DF72 */
+    --success: 141 75% 45%;         /* #05DF72 */
     --success-foreground: 0 0% 100%;
-    --success-soft: 142 71% 85%; /* #B9F8CF */
+    --success-soft: 142 71% 85%;    /* #B9F8CF */
 
     --warning: 38 92% 55%;
     --warning-foreground: 0 0% 100%;
 
-    --border: 220 13% 91%;
+    --border: 220 13% 91%;          /* #E5E7EB — subtle */
+    --border-neutral: 220 13% 91%;  /* neutral divider */
     --input: 220 13% 91%;
     --ring: 109 31% 56%;
 
-    /* ─── Charts (shadcn convention: --chart-1..5)
-       Light: multi-color categorical palette (per Figma) */
-    --chart-1: 142 71% 85%; /* #B9F8CF mint */
-    --chart-2: 109 31% 56%; /* #79B26B brand green */
-    --chart-3: 216 12% 84%; /* #D1D5DC gray */
-    --chart-4: 22 100% 76%; /* #FFB888 peach */
-    --chart-5: 0 95% 72%;   /* #FB7474 salmon */
+    /* ─── Charts — multi-color categorical (per Figma) ─────────────── */
+    --chart-1: 142 71% 85%;
+    --chart-2: 109 31% 56%;
+    --chart-3: 216 12% 84%;
+    --chart-4: 22 100% 76%;
+    --chart-5: 0 95% 72%;
 
-    /* ─── Sidebar (shadcn convention) ─── */
+    /* ─── Sidebar ──────────────────────────────────────────────────── */
     --sidebar: 0 0% 100%;
     --sidebar-foreground: 220 13% 13%;
     --sidebar-primary: 109 31% 56%;
@@ -83,18 +98,21 @@
     --radius: 0.5rem;
   }
 
+  /* ───────────────────────────────────────────────────────────────────────
+   * DARK — .dark
+   * Source: Marketplace MVP spec (markdown) > portal feedback for gaps.
+   * Three-layer surface hierarchy:
+   *   background  (deepest, page bg)        #0a0a0a
+   *   card        (topbar, surface cards)   #0d1f15
+   *   accent      (hover / active surface)  #1f241f   ← portal feedback
+   * ─────────────────────────────────────────────────────────────────────── */
   .dark {
-    --background: 220 26% 9%;
-    --foreground: 0 0% 98%;
+    /* ─── Brand: GroScale Green ─────────────────────────────────────── */
+    --primary: 109 31% 56%;         /* #79B26B — brand stays the same */
+    --primary-foreground: 0 0% 4%;  /* #0a0a0a — for buttons on green */
+    --primary-bright: 140 60% 53%;  /* #3ecf6e — hover / active green */
 
-    --card: 217 22% 13%;
-    --card-foreground: 0 0% 98%;
-
-    --popover: 217 22% 13%;
-    --popover-foreground: 0 0% 98%;
-
-    --primary: 109 35% 60%;
-    --primary-foreground: 220 26% 9%;
+    /* Marketing ramp — kept for hero / display surfaces */
     --primary-50: 109 38% 12%;
     --primary-100: 109 38% 16%;
     --primary-200: 109 36% 22%;
@@ -106,43 +124,63 @@
     --primary-800: 109 30% 84%;
     --primary-900: 110 30% 92%;
 
+    /* ─── Surface (three-layer hierarchy) ───────────────────────────── */
+    --background: 0 0% 4%;          /* #0a0a0a — deepest page bg */
+    --foreground: 0 0% 100%;        /* #ffffff */
+
+    --card: 142 41% 9%;             /* #0d1f15 — topbar, cards */
+    --card-foreground: 0 0% 100%;
+    --card-alt: 0 0% 7%;            /* #111111 — neutral, non-themed cards */
+
+    --popover: 142 41% 9%;          /* matches card */
+    --popover-foreground: 0 0% 100%;
+
+    /* `accent` IS the unified hover surface. Use it via bg-accent / */
+    /* hover:bg-accent for nav, menu items, list rows — consistency.   */
+    --accent: 120 7% 13%;           /* #1f241f — portal feedback */
+    --accent-foreground: 0 0% 100%;
+
+    /* ─── Text ──────────────────────────────────────────────────────── */
+    --muted: 0 0% 7%;               /* uses card-alt as muted surface */
+    --muted-foreground: 140 7% 68%; /* #a8b3ad — body / secondary text */
+    --text-tertiary: 140 4% 44%;    /* #6b756f — captions, metadata */
+
+    /* ─── Form ──────────────────────────────────────────────────────── */
+    --input: 0 0% 5%;               /* #0d0d0d — spec §4 input bg */
+    --border: 150 19% 15%;          /* #1f2e26 — subtle (spec) */
+    --border-neutral: 0 0% 13%;     /* #222222 — neutral divider */
+    --ring: 140 60% 53%;            /* #3ecf6e — focus ring (spec §5) */
+
+    /* ─── Semantic ──────────────────────────────────────────────────── */
     --secondary: 217 19% 22%;
     --secondary-foreground: 0 0% 98%;
-
-    --muted: 217 22% 13%;
-    --muted-foreground: 218 11% 65%;
-
-    --accent: 109 38% 18%;
-    --accent-foreground: 110 30% 89%;
 
     --destructive: 0 70% 55%;
     --destructive-foreground: 0 0% 98%;
 
     --success: 141 65% 50%;
     --success-foreground: 220 26% 9%;
+    --success-soft: 142 71% 85%;
 
     --warning: 38 85% 55%;
     --warning-foreground: 220 26% 9%;
 
-    --border: 217 19% 20%;
-    --input: 217 19% 22%;
-    --ring: 109 35% 60%;
+    /* ─── Charts — monochromatic green ramp (per Figma dark) ───────── */
+    --chart-1: 109 31% 82%;
+    --chart-2: 110 33% 65%;
+    --chart-3: 109 31% 56%;
+    --chart-4: 109 30% 50%;
+    --chart-5: 109 25% 39%;
 
-    /* Dark: monochromatic green palette (per Figma dark version) */
-    --chart-1: 109 31% 82%; /* #CAE0C4 lightest */
-    --chart-2: 110 33% 65%; /* #94C189 */
-    --chart-3: 109 31% 56%; /* #7AB36C brand */
-    --chart-4: 109 30% 50%; /* #6DA060 */
-    --chart-5: 109 25% 39%; /* #557D4B darkest */
-
-    --sidebar: 222 32% 6%;
-    --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 109 35% 60%;
-    --sidebar-primary-foreground: 220 26% 9%;
-    --sidebar-accent: 217 22% 13%;
-    --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 217 19% 16%;
-    --sidebar-ring: 109 35% 60%;
+    /* ─── Sidebar — pure black, its own visual zone ────────────────── */
+    --sidebar: 0 0% 0%;             /* #000000 */
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 109 31% 56%; /* brand green for the logo icon */
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 120 7% 13%;   /* #1f241f — same as global hover */
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 0 0% 8%;      /* near-black separator */
+    --sidebar-ring: 140 60% 53%;
   }
 }
 
@@ -152,7 +190,6 @@
   }
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-feature-settings: 'rlig' 1, 'calt' 1;
   }
   html {

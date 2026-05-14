@@ -49,14 +49,14 @@ export function RegionsCard() {
           <div className="flex items-center gap-1 text-muted-foreground">
             <button
               onClick={handleCopy}
-              className="rounded-md p-1.5 hover:bg-muted hover:text-foreground"
+              className="rounded-md p-1.5 hover:bg-accent hover:text-foreground"
               aria-label="Copy data"
             >
               <Copy className="h-4 w-4" />
             </button>
             <button
               onClick={handleDownload}
-              className="rounded-md p-1.5 hover:bg-muted hover:text-foreground"
+              className="rounded-md p-1.5 hover:bg-accent hover:text-foreground"
               aria-label="Download CSV"
             >
               <Download className="h-4 w-4" />
@@ -77,7 +77,7 @@ export function RegionsCard() {
                   className={cn(
                     'flex h-6 w-6 items-center justify-center rounded-md text-xs font-semibold tabular-nums',
                     isTop
-                      ? 'bg-primary/15 text-primary-700 dark:text-primary-200'
+                      ? 'bg-primary/15 text-primary'
                       : 'bg-muted text-muted-foreground'
                   )}
                 >
@@ -92,7 +92,7 @@ export function RegionsCard() {
                         className={
                           isNegative
                             ? 'text-destructive'
-                            : 'text-primary-700 dark:text-primary-200'
+                            : 'text-primary'
                         }
                       >
                         {r.change}

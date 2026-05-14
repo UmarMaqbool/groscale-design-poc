@@ -34,7 +34,7 @@ export function PerformanceFilters() {
           <button
             type="button"
             onClick={handleCancel}
-            className="h-10 w-full rounded-md border border-input bg-card text-sm text-foreground transition-colors hover:bg-muted"
+            className="h-10 w-full rounded-md border border-input bg-card text-sm text-foreground transition-colors hover:bg-accent"
           >
             Cancel
           </button>

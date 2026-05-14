@@ -11,7 +11,7 @@ interface LmsLogoProps {
  * so the same artwork can be tinted any color. We replicate that with
  * CSS mask-image. Default size matches Figma (313.7 × 74).
  */
-export function LmsLogo({ className, colorClassName = 'bg-[#79b26b]' }: LmsLogoProps) {
+export function LmsLogo({ className, colorClassName = 'bg-primary' }: LmsLogoProps) {
   return (
     <div
       role="img"

@@ -1,7 +1,7 @@
 'use client'
 
-import Image from 'next/image'
 import { Handshake, LineChart, Scale, type LucideIcon } from 'lucide-react'
+import { Logo } from '@/components/app/Logo'
 
 interface FeatureProps {
   icon: LucideIcon
@@ -12,7 +12,7 @@ interface FeatureProps {
 function Feature({ icon: Icon, title, description }: FeatureProps) {
   return (
     <li className="flex gap-3">
-      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/15 text-primary-700 dark:text-primary-200">
+      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/15 text-primary">
         <Icon className="h-4 w-4" strokeWidth={1.7} />
       </span>
       <div>
@@ -25,19 +25,13 @@ function Feature({ icon: Icon, title, description }: FeatureProps) {
 
 export function AuthBrandPanel() {
   return (
-    <div className="relative hidden flex-col justify-between overflow-hidden border-r border-border bg-gradient-to-br from-primary-50 via-card to-primary-100 p-12 lg:flex dark:from-primary-900/30 dark:via-card dark:to-primary-700/20">
+    <div className="relative hidden flex-col justify-between overflow-hidden border-r border-border bg-card p-12 lg:flex">
+      {/* Subtle green-to-transparent accents (spec §7 — the only gradients allowed) */}
       <div className="pointer-events-none absolute -left-32 -top-32 h-72 w-72 rounded-full bg-primary/20 blur-3xl" />
       <div className="pointer-events-none absolute -bottom-32 -right-32 h-96 w-96 rounded-full bg-primary/15 blur-3xl" />
 
       <div className="relative">
-        <Image
-          src="/logo.png"
-          alt="GroScale"
-          width={140}
-          height={36}
-          priority
-          className="h-9 w-auto dark:brightness-0 dark:invert"
-        />
+        <Logo />
       </div>
 
       <div className="relative max-w-md">

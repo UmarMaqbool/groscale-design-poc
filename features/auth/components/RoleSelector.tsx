@@ -48,7 +48,7 @@ export function RoleSelector({ value, onChange }: RoleSelectorProps) {
                 'group flex flex-col gap-2 rounded-lg border p-3.5 text-left transition-all',
                 selected
                   ? 'border-primary bg-primary/10 ring-1 ring-primary'
-                  : 'border-border bg-card hover:border-primary/50 hover:bg-muted/40'
+                  : 'border-border bg-card hover:border-primary/50 hover:bg-accent'
               )}
             >
               <span
@@ -56,7 +56,7 @@ export function RoleSelector({ value, onChange }: RoleSelectorProps) {
                   'flex h-8 w-8 items-center justify-center rounded-md transition-colors',
                   selected
                     ? 'bg-primary text-primary-foreground'
-                    : 'bg-muted text-muted-foreground group-hover:bg-primary/20 group-hover:text-primary-700 dark:group-hover:text-primary-200'
+                    : 'bg-muted text-muted-foreground group-hover:bg-primary/20 group-hover:text-primary'
                 )}
               >
                 <Icon className="h-4 w-4" strokeWidth={1.7} />

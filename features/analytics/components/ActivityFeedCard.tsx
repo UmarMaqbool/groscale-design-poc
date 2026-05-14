@@ -16,7 +16,7 @@ const iconMap: Record<FeedItem['icon'], typeof CheckCircle2> = {
 }
 
 const toneClass: Record<FeedItem['tone'], string> = {
-  success: 'bg-primary/15 text-primary-700 dark:text-primary-200',
+  success: 'bg-primary/15 text-primary',
   warning: 'bg-warning/15 text-warning',
   destructive: 'bg-destructive/15 text-destructive',
 }
@@ -55,14 +55,14 @@ export function ActivityFeedCard() {
           <div className="flex items-center gap-1 text-muted-foreground">
             <button
               onClick={handleCopy}
-              className="rounded-md p-1.5 hover:bg-muted hover:text-foreground"
+              className="rounded-md p-1.5 hover:bg-accent hover:text-foreground"
               aria-label="Copy data"
             >
               <Copy className="h-4 w-4" />
             </button>
             <button
               onClick={handleDownload}
-              className="rounded-md p-1.5 hover:bg-muted hover:text-foreground"
+              className="rounded-md p-1.5 hover:bg-accent hover:text-foreground"
               aria-label="Download CSV"
             >
               <Download className="h-4 w-4" />

@@ -52,7 +52,7 @@ function SingleField({
         <button
           type="button"
           className={cn(
-            'flex h-9 w-[150px] items-center justify-between rounded-md border border-border bg-card px-3 text-sm text-muted-foreground hover:bg-muted/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
+            'flex h-9 w-[150px] items-center justify-between rounded-md border border-border bg-card px-3 text-sm text-muted-foreground hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
             date && 'text-foreground'
           )}
         >

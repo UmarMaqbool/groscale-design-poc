@@ -57,7 +57,7 @@ function Select({ value, options, onChange, iconLeft }: SelectProps) {
             type="button"
             onClick={() => onChange(opt)}
             className={cn(
-              'flex w-full items-center rounded-sm px-3 py-2 text-left text-sm hover:bg-muted',
+              'flex w-full items-center rounded-sm px-3 py-2 text-left text-sm hover:bg-accent',
               value === opt && 'bg-accent font-medium text-primary-700'
             )}
           >
@@ -154,7 +154,7 @@ export function AlgorithmForm() {
         <button
           type="button"
           onClick={handleCancel}
-          className="h-10 rounded-md border border-input bg-card px-5 text-sm text-foreground transition-colors hover:bg-muted"
+          className="h-10 rounded-md border border-input bg-card px-5 text-sm text-foreground transition-colors hover:bg-accent"
         >
           Cancel
         </button>

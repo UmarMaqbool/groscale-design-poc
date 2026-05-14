@@ -33,7 +33,7 @@ export function TrackOrderForm() {
 
   return (
     <form onSubmit={handleSubmit} className="flex w-full flex-col gap-2">
-      <label htmlFor="tracking-number" className="text-sm text-[#344054]">
+      <label htmlFor="tracking-number" className="text-sm text-foreground">
         Tracking Number
       </label>
       <input
@@ -42,11 +42,11 @@ export function TrackOrderForm() {
         value={tracking}
         onChange={(e) => setTracking(e.target.value)}
         placeholder={sampleId ? `Try ${sampleId}` : 'Enter your order number'}
-        className="w-full rounded-[12px] border border-[#d0d5dd] bg-white px-3.5 py-2.5 text-lg text-[#344054] shadow-[0_1px_2px_0_rgba(16,24,40,0.05)] placeholder:text-[#667085] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#79b26b]"
+        className="w-full rounded-xl border border-gray-300 bg-card px-3.5 py-2.5 text-lg text-foreground shadow-xs placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
       />
       <button
         type="submit"
-        className="mt-4 flex h-11 w-full items-center justify-center rounded-[12px] border border-[#79b26b] bg-[#79b26b] px-5 py-3 text-base font-bold text-white shadow-[0_1px_2px_0_rgba(16,24,40,0.05)] transition-colors hover:bg-[#6aa05c]"
+        className="mt-4 flex h-11 w-full items-center justify-center rounded-xl border border-primary bg-primary px-5 py-3 text-base font-bold text-primary-foreground shadow-xs transition-colors hover:bg-primary-600"
       >
         Track Package
       </button>

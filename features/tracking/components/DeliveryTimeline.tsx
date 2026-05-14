@@ -25,8 +25,8 @@ export function DeliveryTimeline({ steps, status }: DeliveryTimelineProps) {
   const currentIndex = ORDER[status]
 
   return (
-    <div className="rounded-[10px] border border-[#e5e7eb] bg-white p-4 lg:p-5">
-      <h2 className="mb-5 text-lg font-bold text-[#344054] lg:mb-6 lg:text-xl">
+    <div className="rounded-[10px] border border-border bg-card p-4 lg:p-5">
+      <h2 className="mb-5 text-lg font-bold text-foreground lg:mb-6 lg:text-xl">
         Delivery Timeline
       </h2>
 
@@ -35,19 +35,12 @@ export function DeliveryTimeline({ steps, status }: DeliveryTimelineProps) {
         {steps.map((step, i) => {
           const state = stateFor(i, currentIndex)
           const isLast = i === steps.length - 1
-          // Connector below this badge runs to the next badge.
-          const connectorColor = !isLast && state === 'completed' ? '#79b26b' : '#e5e7eb'
 
           return (
             <li key={step.key} className="flex items-stretch gap-4">
               <div className="flex flex-col items-center">
                 <StepBadge state={state} />
-                {!isLast && (
-                  <div
-                    className="w-0.5 flex-1"
-                    style={{ backgroundColor: connectorColor }}
-                  />
-                )}
+                {!isLast && <Connector active={state === 'completed'} orientation="vertical" />}
               </div>
               <div
                 className={cn(
@@ -58,12 +51,12 @@ export function DeliveryTimeline({ steps, status }: DeliveryTimelineProps) {
                 <p
                   className={cn(
                     'text-base leading-tight',
-                    state === 'pending' ? 'text-[#4a5565]' : 'text-[#79b26b]'
+                    state === 'pending' ? 'text-muted-foreground' : 'text-primary'
                   )}
                 >
                   {step.label}
                 </p>
-                <p className="mt-0.5 text-sm text-[#4a5565]">{step.date}</p>
+                <p className="mt-0.5 text-sm text-muted-foreground">{step.date}</p>
               </div>
             </li>
           )
@@ -76,33 +69,34 @@ export function DeliveryTimeline({ steps, status }: DeliveryTimelineProps) {
           const state = stateFor(i, currentIndex)
           const isFirst = i === 0
           const isLast = i === steps.length - 1
-          const leftLineColor =
-            !isFirst && (state === 'completed' || state === 'current') ? '#79b26b' : '#e5e7eb'
-          const rightLineColor = !isLast && state === 'completed' ? '#79b26b' : '#e5e7eb'
+          const leftActive = !isFirst && (state === 'completed' || state === 'current')
+          const rightActive = !isLast && state === 'completed'
 
           return (
             <div key={step.key} className="flex flex-1 flex-col items-center gap-4">
               <div className="flex w-full items-center justify-center">
-                <div
-                  className="h-0.5 flex-1"
-                  style={{ backgroundColor: isFirst ? 'transparent' : leftLineColor }}
-                />
+                {isFirst ? (
+                  <div className="h-0.5 flex-1 bg-transparent" />
+                ) : (
+                  <Connector active={leftActive} orientation="horizontal" />
+                )}
                 <StepBadge state={state} />
-                <div
-                  className="h-0.5 flex-1"
-                  style={{ backgroundColor: isLast ? 'transparent' : rightLineColor }}
-                />
+                {isLast ? (
+                  <div className="h-0.5 flex-1 bg-transparent" />
+                ) : (
+                  <Connector active={rightActive} orientation="horizontal" />
+                )}
               </div>
               <div className="flex flex-col items-center text-center">
                 <p
                   className={cn(
                     'text-lg leading-tight',
-                    state === 'pending' ? 'text-[#4a5565]' : 'text-[#79b26b]'
+                    state === 'pending' ? 'text-muted-foreground' : 'text-primary'
                   )}
                 >
                   {step.label}
                 </p>
-                <p className="mt-0.5 text-sm text-[#4a5565]">{step.date}</p>
+                <p className="mt-0.5 text-sm text-muted-foreground">{step.date}</p>
               </div>
             </div>
           )
@@ -112,31 +106,46 @@ export function DeliveryTimeline({ steps, status }: DeliveryTimelineProps) {
   )
 }
 
+function Connector({
+  active,
+  orientation,
+}: {
+  active: boolean
+  orientation: 'horizontal' | 'vertical'
+}) {
+  return (
+    <div
+      className={cn(
+        'flex-1',
+        orientation === 'horizontal' ? 'h-0.5' : 'w-0.5',
+        active ? 'bg-primary' : 'bg-border'
+      )}
+    />
+  )
+}
+
 function StepBadge({ state }: { state: StepState }) {
   const isCompleted = state === 'completed'
   const isCurrent = state === 'current'
 
-  const containerClasses = cn(
-    'flex size-10 shrink-0 items-center justify-center rounded-md border lg:size-[46px]',
-    isCompleted && 'border-transparent bg-[#79b26b]',
-    isCurrent && 'border-[#c0e4ca] bg-[#f7fff5]',
-    state === 'pending' && 'border-[#e5e7eb] bg-[#f9fafb]'
-  )
-
-  // Stroke colors copied from Figma SVGs
-  const strokeColor = isCompleted ? '#ffffff' : isCurrent ? '#06402B' : '#4A5565'
-
   return (
-    <div className={containerClasses}>
+    <div
+      className={cn(
+        'flex size-10 shrink-0 items-center justify-center rounded-md border lg:size-[46px]',
+        isCompleted && 'border-transparent bg-primary text-primary-foreground',
+        isCurrent && 'border-primary-200 bg-primary-50 text-primary-900',
+        state === 'pending' && 'border-border bg-muted text-muted-foreground'
+      )}
+    >
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12Z"
-          stroke={strokeColor}
+          stroke="currentColor"
           strokeWidth="1.5"
         />
         <path
           d="M8 12.5L10.5 15L16 9"
-          stroke={strokeColor}
+          stroke="currentColor"
           strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"

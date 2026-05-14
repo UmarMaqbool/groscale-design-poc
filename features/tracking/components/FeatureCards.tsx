@@ -28,13 +28,13 @@ export function FeatureCards() {
 function FeatureRow({ feature }: { feature: Feature }) {
   const { icon: Icon, title, subtitle } = feature
   return (
-    <div className="flex flex-1 items-center gap-4 rounded-[12px] border border-[#d0d5dd] bg-white px-4 py-3 shadow-[0_1px_2px_0_rgba(16,24,40,0.05)]">
-      <div className="flex size-10 shrink-0 items-center justify-center rounded-md bg-[#79b26b] shadow-[0_1px_1px_0_rgba(16,24,40,0.05)]">
-        <Icon className="size-5 text-white" strokeWidth={1.75} />
+    <div className="flex flex-1 items-center gap-4 rounded-xl border border-gray-300 bg-card px-4 py-3 shadow-xs">
+      <div className="flex size-10 shrink-0 items-center justify-center rounded-md bg-primary shadow-xs">
+        <Icon className="size-5 text-primary-foreground" strokeWidth={1.75} />
       </div>
       <div className="flex flex-col gap-1">
-        <p className="text-base font-bold leading-tight text-[#344054]">{title}</p>
-        <p className="text-xs leading-3 text-[#4a5565]">{subtitle}</p>
+        <p className="text-base font-bold leading-tight text-foreground">{title}</p>
+        <p className="text-xs leading-3 text-muted-foreground">{subtitle}</p>
       </div>
     </div>
   )

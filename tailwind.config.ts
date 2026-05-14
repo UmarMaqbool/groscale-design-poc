@@ -1,10 +1,34 @@
 import type { Config } from 'tailwindcss'
 
-/**
- * GroScale Design System — Tailwind config
- * Tokens sourced from Figma file ERXAbJz6PK3gGdnktDdcqC.
- * All colors are HSL CSS variables defined in app/globals.css.
- */
+/* =============================================================================
+ * GroScale — Tailwind Configuration
+ * =============================================================================
+ *
+ * SOURCE OF TRUTH
+ * ---------------
+ * Every color, font and surface in this app is driven by a CSS variable
+ * declared in `app/globals.css` (`:root` for light, `.dark` for dark mode).
+ * This file maps those variables into Tailwind utilities.
+ *
+ * RULES FOR CONTRIBUTORS
+ * ----------------------
+ *  1. Never hard-code hex values inside components. If a color is missing,
+ *     add a token to `globals.css` and expose it here.
+ *  2. Token names are SEMANTIC (`bg-card`, `text-muted-foreground`,
+ *     `border-subtle`) — not visual (`bg-dark-green`). Semantic names survive
+ *     redesigns; visual names rot.
+ *  3. Both themes must define every token. If a token only makes sense in
+ *     one theme, prefix it (e.g. `--dark-only-*`) and document why.
+ *  4. All colors use HSL channel-only syntax (e.g. `109 31% 56%`) so Tailwind
+ *     can compose them with alpha modifiers (`bg-primary/40`).
+ *
+ * SPEC ALIGNMENT
+ * --------------
+ * Dark theme tokens follow the Marketplace MVP spec (`groscale-portal-UIv2.md`).
+ * Portal-specific layering (search/topbar surface, hover surface) follows the
+ * portal review feedback. Markdown spec wins where both define a value.
+ * ========================================================================== */
+
 const config: Config = {
   darkMode: ['class'],
   content: [
@@ -19,16 +43,59 @@ const config: Config = {
       screens: { '2xl': '1440px' },
     },
     extend: {
+      // ─────────────────────────────────────────────────────────────────────
+      // COLORS
+      // ─────────────────────────────────────────────────────────────────────
       colors: {
-        border: 'hsl(var(--border))',
-        input: 'hsl(var(--input))',
-        ring: 'hsl(var(--ring))',
+        // === Surface ====================================================
+        // Layered backgrounds. Hierarchy (dark mode):
+        //   background  → deepest page bg          #0a0a0a
+        //   card        → topbar, cards            #0d1f15
+        //   card-alt    → neutral (non-themed)     #111111
+        //   accent      → hover / active surface   #1f241f
+        // ----------------------------------------------------------------
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
 
+        card: {
+          DEFAULT: 'hsl(var(--card))',
+          foreground: 'hsl(var(--card-foreground))',
+          alt: 'hsl(var(--card-alt))',
+        },
+
+        popover: {
+          DEFAULT: 'hsl(var(--popover))',
+          foreground: 'hsl(var(--popover-foreground))',
+        },
+
+        // shadcn convention: `accent` doubles as the unified HOVER surface.
+        // All interactive hovers (nav, menu items, list rows) should land
+        // here so hover feels consistent across the app.
+        accent: {
+          DEFAULT: 'hsl(var(--accent))',
+          foreground: 'hsl(var(--accent-foreground))',
+        },
+
+        muted: {
+          DEFAULT: 'hsl(var(--muted))',
+          foreground: 'hsl(var(--muted-foreground))',
+        },
+
+        // === Border / Form ==============================================
+        border: 'hsl(var(--border))',          // subtle, the default
+        'border-neutral': 'hsl(var(--border-neutral))', // non-themed dividers
+        input: 'hsl(var(--input))',
+        ring: 'hsl(var(--ring))',
+
+        // === Brand ======================================================
+        // 50–900 ramp is for marketing surfaces and gradients.
+        // `bright` is the active/hover accent used in the Marketplace spec.
+        // Day-to-day UI should reach for `primary` (DEFAULT) and only opt
+        // into `bright` for the hover/active state.
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
+          bright: 'hsl(var(--primary-bright))',
           50: 'hsl(var(--primary-50))',
           100: 'hsl(var(--primary-100))',
           200: 'hsl(var(--primary-200))',
@@ -45,6 +112,8 @@ const config: Config = {
           DEFAULT: 'hsl(var(--secondary))',
           foreground: 'hsl(var(--secondary-foreground))',
         },
+
+        // === Semantic (status) ==========================================
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))',
@@ -58,23 +127,10 @@ const config: Config = {
           DEFAULT: 'hsl(var(--warning))',
           foreground: 'hsl(var(--warning-foreground))',
         },
-        muted: {
-          DEFAULT: 'hsl(var(--muted))',
-          foreground: 'hsl(var(--muted-foreground))',
-        },
-        accent: {
-          DEFAULT: 'hsl(var(--accent))',
-          foreground: 'hsl(var(--accent-foreground))',
-        },
-        popover: {
-          DEFAULT: 'hsl(var(--popover))',
-          foreground: 'hsl(var(--popover-foreground))',
-        },
-        card: {
-          DEFAULT: 'hsl(var(--card))',
-          foreground: 'hsl(var(--card-foreground))',
-        },
-        // shadcn/ui Sidebar tokens
+
+        // === Sidebar ====================================================
+        // In dark mode the sidebar is pure black (#000) with white text.
+        // It does NOT inherit the page surface — it is its own visual zone.
         sidebar: {
           DEFAULT: 'hsl(var(--sidebar))',
           foreground: 'hsl(var(--sidebar-foreground))',
@@ -85,7 +141,10 @@ const config: Config = {
           border: 'hsl(var(--sidebar-border))',
           ring: 'hsl(var(--sidebar-ring))',
         },
-        // shadcn/ui Chart tokens
+
+        // === Charts =====================================================
+        // Five categorical slots used by recharts. Light = multi-color
+        // (per Figma), dark = monochromatic green ramp.
         chart: {
           1: 'hsl(var(--chart-1))',
           2: 'hsl(var(--chart-2))',
@@ -94,35 +153,73 @@ const config: Config = {
           5: 'hsl(var(--chart-5))',
         },
       },
+
+      // ─────────────────────────────────────────────────────────────────────
+      // TEXT COLORS (extension only — does NOT add bg-* / border-* siblings)
+      // ─────────────────────────────────────────────────────────────────────
+      // `text-tertiary` is the Marketplace spec's caption / metadata color.
+      // Lives in `textColor` so it can't accidentally be used as a surface.
+      textColor: {
+        tertiary: 'hsl(var(--text-tertiary))',
+      },
+
+      // ─────────────────────────────────────────────────────────────────────
+      // TYPOGRAPHY
+      // ─────────────────────────────────────────────────────────────────────
+      // Font stack reads the CSS variable set by `next/font/google` Inter
+      // in `app/layout.tsx`. Falls back to system sans for SSR / no-JS.
+      fontFamily: {
+        sans: ['var(--font-sans)', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+        mono: ['ui-monospace', 'SFMono-Regular', 'monospace'],
+      },
+
+      // Type scale — see Marketplace MVP spec §2 for canonical values.
+      // The `display-*` variants are reserved for marketing surfaces.
+      fontSize: {
+        xs: ['0.75rem', { lineHeight: '1rem' }],            // 12px
+        sm: ['0.875rem', { lineHeight: '1.25rem' }],        // 14px
+        base: ['1rem', { lineHeight: '1.5rem' }],           // 16px
+        lg: ['1.125rem', { lineHeight: '1.75rem' }],        // 18px
+        xl: ['1.25rem', { lineHeight: '1.75rem' }],         // 20px
+        '2xl': ['1.5rem', { lineHeight: '1.75rem' }],       // 24px
+        '3xl': ['1.875rem', { lineHeight: '2.25rem' }],     // 30px
+        '4xl': ['2.25rem', { lineHeight: '2.5rem' }],       // 36px
+        // Display (marketing) — match spec §2 exactly
+        'display-sm': ['1.25rem', { lineHeight: '1.3', fontWeight: '600', letterSpacing: '0' }],         // H4 20/600
+        'display-md': ['2rem', { lineHeight: '1.2', fontWeight: '600', letterSpacing: '-0.01em' }],      // H3 32/600
+        'display-lg': ['3rem', { lineHeight: '1.15', fontWeight: '700', letterSpacing: '-0.01em' }],     // H2 48/700
+        'display-xl': ['4.5rem', { lineHeight: '1.1', fontWeight: '700', letterSpacing: '-0.02em' }],    // H1 72/700
+      },
+
+      // ─────────────────────────────────────────────────────────────────────
+      // SPACING / SIZING
+      // ─────────────────────────────────────────────────────────────────────
+      // Tailwind's default 4-px scale already covers the Marketplace spec
+      // (4·8·12·16·24·32·40·56·80·120 → spacing 1·2·3·4·6·8·10·14·20·30).
+      // The values below are domain-specific tokens we don't get for free.
+      spacing: {
+        'header-row': '48px',  // AG Grid header row height (Figma)
+        'data-row': '42px',    // AG Grid data row height (Figma)
+      },
+
+      // ─────────────────────────────────────────────────────────────────────
+      // BORDER RADIUS
+      // ─────────────────────────────────────────────────────────────────────
+      // `lg/md/sm` derive from `--radius` so a single CSS-var change
+      // re-tunes the entire app. `card` matches Figma's 10-px portal cards.
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
+        card: '10px',
       },
-      fontFamily: {
-        sans: ['"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
-        mono: ['ui-monospace', 'SFMono-Regular', 'monospace'],
-      },
-      // Figma typography scale (Helvetica Regular @ 12, 14, 16, 24, 30)
-      fontSize: {
-        xs: ['0.75rem', { lineHeight: '1rem' }], // 12px
-        sm: ['0.875rem', { lineHeight: '1.25rem' }], // 14px / 20px
-        base: ['1rem', { lineHeight: '1.5rem' }], // 16px / 24px
-        lg: ['1.125rem', { lineHeight: '1.75rem' }],
-        xl: ['1.25rem', { lineHeight: '1.75rem' }],
-        '2xl': ['1.5rem', { lineHeight: '1.75rem' }], // 24px
-        '3xl': ['1.875rem', { lineHeight: '2.25rem' }], // 30px
-        '4xl': ['2.25rem', { lineHeight: '2.5rem' }],
-        // Display variants for marketing surfaces
-        'display-sm': ['1.875rem', { lineHeight: '2.375rem', fontWeight: '600' }],
-        'display-md': ['2.25rem', { lineHeight: '2.75rem', letterSpacing: '-0.01em', fontWeight: '700' }],
-        'display-lg': ['3rem', { lineHeight: '3.625rem', letterSpacing: '-0.02em', fontWeight: '700' }],
-      },
-      spacing: {
-        // Figma component-specific tokens
-        'header-row': '48px',
-        'data-row': '42px',
-      },
+
+      // ─────────────────────────────────────────────────────────────────────
+      // SHADOWS
+      // ─────────────────────────────────────────────────────────────────────
+      // Light-mode subtle elevation. Dark mode should generally avoid shadow
+      // (per spec §7: "No drop shadows on cards or surfaces") and rely on
+      // borders for separation.
       boxShadow: {
         xs: '0 1px 2px 0 rgb(16 24 40 / 0.05)',
         sm: '0 1px 3px 0 rgb(16 24 40 / 0.06), 0 1px 2px -1px rgb(16 24 40 / 0.06)',
@@ -130,6 +227,18 @@ const config: Config = {
         lg: '0 12px 16px -4px rgb(16 24 40 / 0.06), 0 4px 6px -2px rgb(16 24 40 / 0.03)',
         card: '0 1px 2px 0 rgb(24 29 31 / 0.06), 0 0 0 1px rgb(24 29 31 / 0.04)',
       },
+
+      // ─────────────────────────────────────────────────────────────────────
+      // MOTION
+      // ─────────────────────────────────────────────────────────────────────
+      // Marketplace spec §5: 200ms ease for all default hovers.
+      transitionDuration: {
+        DEFAULT: '200ms',
+      },
+      transitionTimingFunction: {
+        DEFAULT: 'cubic-bezier(0.4, 0, 0.2, 1)',
+      },
+
       keyframes: {
         'accordion-down': {
           from: { height: '0' },

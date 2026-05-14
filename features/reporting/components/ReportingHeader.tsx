@@ -40,7 +40,7 @@ export function ReportingHeader() {
           aria-label="Open filters"
           aria-expanded={filtersOpen}
           onClick={() => setFiltersOpen(!filtersOpen)}
-          className="flex h-10 w-10 items-center justify-center rounded-md border border-input bg-card text-muted-foreground transition-colors hover:bg-muted"
+          className="flex h-10 w-10 items-center justify-center rounded-md border border-input bg-card text-muted-foreground transition-colors hover:bg-accent"
         >
           <SlidersHorizontal className="h-4 w-4" />
         </button>

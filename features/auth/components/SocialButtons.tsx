@@ -44,7 +44,7 @@ export function SocialButtons() {
         type="button"
         variant="outline"
         onClick={() => toast('Google sign-in mocked')}
-        className="h-11 gap-2 border-border bg-card text-sm font-medium text-foreground hover:bg-muted"
+        className="h-11 gap-2 border-border bg-card text-sm font-medium text-foreground hover:bg-accent"
       >
         <GoogleIcon />
         Google
@@ -53,7 +53,7 @@ export function SocialButtons() {
         type="button"
         variant="outline"
         onClick={() => toast('Microsoft sign-in mocked')}
-        className="h-11 gap-2 border-border bg-card text-sm font-medium text-foreground hover:bg-muted"
+        className="h-11 gap-2 border-border bg-card text-sm font-medium text-foreground hover:bg-accent"
       >
         <MicrosoftIcon />
         Microsoft

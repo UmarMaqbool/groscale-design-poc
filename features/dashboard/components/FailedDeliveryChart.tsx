@@ -56,14 +56,14 @@ export function FailedDeliveryChart() {
           <div className="flex items-center gap-3 text-muted-foreground">
             <button
               onClick={handleCopy}
-              className="rounded-md p-1 hover:bg-muted hover:text-foreground"
+              className="rounded-md p-1 hover:bg-accent hover:text-foreground"
               aria-label="Copy data"
             >
               <Copy className="h-5 w-5" />
             </button>
             <button
               onClick={handleDownload}
-              className="rounded-md p-1 hover:bg-muted hover:text-foreground"
+              className="rounded-md p-1 hover:bg-accent hover:text-foreground"
               aria-label="Download CSV"
             >
               <Download className="h-5 w-5" />

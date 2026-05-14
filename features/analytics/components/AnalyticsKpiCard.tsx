@@ -41,7 +41,7 @@ export function AnalyticsKpiCard({ kpi }: Props) {
           className={cn(
             'inline-flex items-center gap-0.5 rounded-md px-1.5 py-0.5 text-xs font-medium',
             kpi.deltaTone === 'success'
-              ? 'bg-primary/15 text-primary-700 dark:text-primary-200'
+              ? 'bg-primary/15 text-primary'
               : 'bg-destructive/15 text-destructive'
           )}
         >

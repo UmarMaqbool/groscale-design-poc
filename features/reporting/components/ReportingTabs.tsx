@@ -33,7 +33,7 @@ export function ReportingTabs() {
                   'rounded-md border px-4 py-1.5 text-sm transition-colors',
                   isActive
                     ? 'border-primary bg-primary text-primary-foreground'
-                    : 'border-border bg-card text-foreground hover:bg-muted'
+                    : 'border-border bg-card text-foreground hover:bg-accent'
                 )}
               >
                 {tab.label}
@@ -74,7 +74,7 @@ function RightActions({
           type="button"
           onClick={() => toast.success('Exporting Package Details report')}
           aria-label="Export"
-          className="flex h-9 w-9 items-center justify-center rounded-md border border-border bg-card text-muted-foreground transition-colors hover:bg-muted"
+          className="flex h-9 w-9 items-center justify-center rounded-md border border-border bg-card text-muted-foreground transition-colors hover:bg-accent"
         >
           <Download className="h-4 w-4" />
         </button>
@@ -87,7 +87,7 @@ function RightActions({
       <button
         type="button"
         onClick={() => toast.success('Exporting CSV')}
-        className="flex h-9 items-center gap-2 rounded-md border border-border bg-card px-3 text-sm text-muted-foreground transition-colors hover:bg-muted"
+        className="flex h-9 items-center gap-2 rounded-md border border-border bg-card px-3 text-sm text-muted-foreground transition-colors hover:bg-accent"
       >
         <Download className="h-4 w-4" />
         Export To CSV
@@ -101,7 +101,7 @@ function RightActions({
       <button
         type="button"
         onClick={() => toast.success('Exporting CSV')}
-        className="flex h-9 items-center gap-2 rounded-md border border-border bg-card px-3 text-sm text-muted-foreground transition-colors hover:bg-muted"
+        className="flex h-9 items-center gap-2 rounded-md border border-border bg-card px-3 text-sm text-muted-foreground transition-colors hover:bg-accent"
       >
         <Download className="h-4 w-4" />
         Export To CSV
@@ -109,7 +109,7 @@ function RightActions({
       <button
         type="button"
         onClick={() => toast.success('Exporting line items')}
-        className="flex h-9 items-center gap-2 rounded-md border border-border bg-card px-3 text-sm text-muted-foreground transition-colors hover:bg-muted"
+        className="flex h-9 items-center gap-2 rounded-md border border-border bg-card px-3 text-sm text-muted-foreground transition-colors hover:bg-accent"
       >
         <Download className="h-4 w-4" />
         Export Line items

@@ -1,7 +1,7 @@
 'use client'
 
-import Image from 'next/image'
 import type { ReactNode } from 'react'
+import { Logo } from '@/components/app/Logo'
 import { AuthBrandPanel } from './AuthBrandPanel'
 import { AuthThemeToggle } from './AuthThemeToggle'
 
@@ -24,14 +24,7 @@ export function AuthShell({ title, subtitle, children, footer }: AuthShellProps)
       <div className="relative flex flex-col px-6 py-8 lg:px-14 lg:py-12">
         <div className="flex items-center justify-between">
           <div className="lg:hidden">
-            <Image
-              src="/logo.png"
-              alt="GroScale"
-              width={120}
-              height={32}
-              priority
-              className="h-8 w-auto dark:brightness-0 dark:invert"
-            />
+            <Logo />
           </div>
           <div className="ml-auto">
             <AuthThemeToggle />

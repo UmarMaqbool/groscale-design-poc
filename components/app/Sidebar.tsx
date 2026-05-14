@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import {
@@ -13,6 +12,7 @@ import {
   type LucideIcon,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { Logo } from './Logo'
 import { useSidebar } from './sidebarStore'
 
 type NavItem = {
@@ -47,20 +47,7 @@ export function Sidebar() {
           collapsed ? 'justify-center px-3' : 'px-6'
         )}
       >
-        {collapsed ? (
-          <div className="flex h-9 w-9 items-center justify-center rounded-md bg-sidebar-primary text-sm font-bold text-sidebar-primary-foreground">
-            G
-          </div>
-        ) : (
-          <Image
-            src="/logo.png"
-            alt="GroScale"
-            width={128}
-            height={32}
-            priority
-            className="h-8 w-auto dark:brightness-0 dark:invert"
-          />
-        )}
+        <Logo collapsed={collapsed} />
       </div>
 
       <nav className="flex flex-col gap-1 p-3">
@@ -75,7 +62,7 @@ export function Sidebar() {
                 'group flex items-center gap-3 rounded-lg px-3 py-3 text-sm transition-colors',
                 isActive
                   ? 'bg-sidebar-accent font-medium text-sidebar-accent-foreground'
-                  : 'text-sidebar-foreground/60 hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground',
+                  : 'text-sidebar-foreground/60 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground',
                 collapsed && 'justify-center px-2'
               )}
               title={collapsed ? item.label : undefined}

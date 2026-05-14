@@ -28,7 +28,7 @@ export function WeeklyReporting() {
         <button
           type="button"
           onClick={() => toast.success('Exporting Weekly Summary')}
-          className="h-9 rounded-md border border-border bg-card px-3 text-sm text-foreground transition-colors hover:bg-muted"
+          className="h-9 rounded-md border border-border bg-card px-3 text-sm text-foreground transition-colors hover:bg-accent"
         >
           Export Now
         </button>

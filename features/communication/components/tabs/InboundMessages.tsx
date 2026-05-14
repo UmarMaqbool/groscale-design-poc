@@ -43,7 +43,7 @@ export function InboundMessages() {
           <button
             type="button"
             onClick={() => toast.success('Exporting inbound messages')}
-            className="flex h-9 items-center gap-1.5 rounded-md border border-border bg-card px-3 text-sm text-foreground transition-colors hover:bg-muted"
+            className="flex h-9 items-center gap-1.5 rounded-md border border-border bg-card px-3 text-sm text-foreground transition-colors hover:bg-accent"
           >
             <Download className="h-4 w-4" />
             Export
@@ -80,7 +80,7 @@ export function InboundMessages() {
             <button
               type="button"
               onClick={() => toast.success('Exporting inbound messages')}
-              className="h-9 rounded-md border border-border bg-card px-3 text-sm text-foreground transition-colors hover:bg-muted"
+              className="h-9 rounded-md border border-border bg-card px-3 text-sm text-foreground transition-colors hover:bg-accent"
             >
               Export Now
             </button>
@@ -104,7 +104,7 @@ export function InboundMessages() {
                     type="button"
                     onClick={() => setRowRange(opt)}
                     className={cn(
-                      'flex w-full items-center rounded-sm px-3 py-2 text-left text-sm hover:bg-muted',
+                      'flex w-full items-center rounded-sm px-3 py-2 text-left text-sm hover:bg-accent',
                       rowRange === opt && 'bg-accent font-medium text-primary-700'
                     )}
                   >
@@ -116,7 +116,7 @@ export function InboundMessages() {
             <button
               type="button"
               onClick={() => toast('Filter dialog')}
-              className="h-9 rounded-md border border-input bg-card px-4 text-sm text-foreground transition-colors hover:bg-muted"
+              className="h-9 rounded-md border border-input bg-card px-4 text-sm text-foreground transition-colors hover:bg-accent"
             >
               Filter
             </button>

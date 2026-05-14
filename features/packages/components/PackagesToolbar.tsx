@@ -44,7 +44,7 @@ export function PackagesToolbar() {
               className={`h-9 rounded-md border px-4 text-sm transition-colors ${
                 active
                   ? 'border-primary bg-primary font-medium text-primary-foreground'
-                  : 'border-border bg-card text-foreground hover:bg-muted'
+                  : 'border-border bg-card text-foreground hover:bg-accent'
               }`}
             >
               {tab.label}
@@ -76,7 +76,7 @@ export function PackagesToolbar() {
                     key={col.key}
                     type="button"
                     onClick={() => toggleColumn(col.key)}
-                    className="flex w-full items-center gap-2 rounded-sm px-2 py-1.5 text-sm hover:bg-muted"
+                    className="flex w-full items-center gap-2 rounded-sm px-2 py-1.5 text-sm hover:bg-accent"
                   >
                     <Checkbox checked={isVisible} onCheckedChange={() => toggleColumn(col.key)} />
                     <span className="text-foreground">{col.label}</span>

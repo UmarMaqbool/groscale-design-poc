@@ -141,7 +141,7 @@ export function SignupForm() {
             type="button"
             onClick={() => setShowPassword((s) => !s)}
             aria-label={showPassword ? 'Hide password' : 'Show password'}
-            className="absolute right-2 top-1/2 -translate-y-1/2 rounded-md p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground"
+            className="absolute right-2 top-1/2 -translate-y-1/2 rounded-md p-1.5 text-muted-foreground hover:bg-accent hover:text-foreground"
           >
             {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
           </button>
@@ -171,7 +171,7 @@ export function SignupForm() {
           <button
             type="button"
             onClick={() => toast('Terms coming soon')}
-            className="font-medium text-primary-700 hover:underline dark:text-primary-200"
+            className="font-medium text-primary hover:underline"
           >
             Marketplace Terms
           </button>{' '}
@@ -179,7 +179,7 @@ export function SignupForm() {
           <button
             type="button"
             onClick={() => toast('Privacy policy coming soon')}
-            className="font-medium text-primary-700 hover:underline dark:text-primary-200"
+            className="font-medium text-primary hover:underline"
           >
             Privacy Policy
           </button>

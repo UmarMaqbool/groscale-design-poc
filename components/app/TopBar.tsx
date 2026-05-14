@@ -1,7 +1,7 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import {
-  Search,
   PanelLeft,
   Sun,
   Moon,
@@ -15,7 +15,6 @@ import {
 import { useRouter } from 'next/navigation'
 import { useTheme } from 'next-themes'
 import { toast } from 'sonner'
-import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -37,44 +36,57 @@ const mockNotifications = [
 
 export function TopBar() {
   const { toggle } = useSidebar()
-  const { theme, setTheme } = useTheme()
+  const { resolvedTheme, setTheme } = useTheme()
   const router = useRouter()
-  const isDark = theme === 'dark'
+
+  // `useTheme()` returns undefined on the server and during the first client
+  // render; gate the theme-toggle indicator until hydration completes so we
+  // don't briefly highlight the wrong icon.
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
+
+  // Three-state: 'unknown' avoids highlighting either icon until hydration
+  // completes, otherwise SSR (where resolvedTheme is undefined) would briefly
+  // light up the Sun even when the user is in dark mode.
+  const themeState: 'unknown' | 'light' | 'dark' = !mounted
+    ? 'unknown'
+    : resolvedTheme === 'dark'
+      ? 'dark'
+      : 'light'
+  const isDark = themeState === 'dark'
 
   return (
     <header className="sticky top-0 z-40 flex h-[72px] items-center justify-between border-b border-border bg-card px-5">
-      <div className="flex items-center gap-3">
-        <Button
-          onClick={toggle}
-          variant="ghost"
-          size="icon"
-          className="h-8 w-8 rounded-full border border-border"
-          aria-label="Toggle sidebar"
-        >
-          <PanelLeft className="h-4 w-4" />
-        </Button>
-        <div className="relative w-[240px]">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <Input placeholder="Search" className="h-9 pl-9 text-sm" />
-        </div>
-      </div>
+      <Button
+        onClick={toggle}
+        variant="ghost"
+        size="icon"
+        className="h-8 w-8 rounded-full border border-border"
+        aria-label="Toggle sidebar"
+      >
+        <PanelLeft className="h-4 w-4" />
+      </Button>
 
       <div className="flex items-center gap-2">
         <button
           onClick={() => setTheme(isDark ? 'light' : 'dark')}
           aria-label="Toggle theme"
-          className="relative flex h-8 w-[55px] items-center rounded-full bg-card ring-1 ring-border transition-colors hover:bg-muted"
+          className="relative flex h-8 w-[55px] items-center rounded-full bg-card ring-1 ring-border transition-colors hover:bg-accent"
         >
           <span
-            className={`absolute flex h-6 w-6 items-center justify-center rounded-full transition-all duration-200 ${
-              isDark ? 'left-1 bg-primary text-primary-foreground' : 'left-1 text-muted-foreground'
+            className={`absolute left-1 flex h-6 w-6 items-center justify-center rounded-full transition-all duration-200 ${
+              themeState === 'dark'
+                ? 'bg-primary text-primary-foreground'
+                : 'text-muted-foreground'
             }`}
           >
             <Moon className="h-3.5 w-3.5" />
           </span>
           <span
-            className={`absolute flex h-6 w-6 items-center justify-center rounded-full transition-all duration-200 ${
-              !isDark ? 'right-1 bg-primary text-primary-foreground' : 'right-1 text-muted-foreground'
+            className={`absolute right-1 flex h-6 w-6 items-center justify-center rounded-full transition-all duration-200 ${
+              themeState === 'light'
+                ? 'bg-primary text-primary-foreground'
+                : 'text-muted-foreground'
             }`}
           >
             <Sun className="h-3.5 w-3.5" />
@@ -99,7 +111,7 @@ export function TopBar() {
               {mockNotifications.map((n) => (
                 <button
                   key={n.id}
-                  className="flex w-full items-start gap-3 px-4 py-3 text-left hover:bg-muted"
+                  className="flex w-full items-start gap-3 px-4 py-3 text-left hover:bg-accent"
                   onClick={() => toast(n.title)}
                 >
                   <span
@@ -126,7 +138,7 @@ export function TopBar() {
           <DropdownMenuTrigger asChild>
             <Button
               variant="ghost"
-              className="h-8 gap-2.5 rounded-md border border-border px-1.5 text-sm font-normal text-muted-foreground hover:bg-muted"
+              className="h-8 gap-2.5 rounded-md border border-border px-1.5 text-sm font-normal text-muted-foreground hover:bg-accent"
             >
               <span className="flex h-6 w-6 items-center justify-center rounded-full bg-muted">
                 <User className="h-3.5 w-3.5 text-muted-foreground" />

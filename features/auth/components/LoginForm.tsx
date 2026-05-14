@@ -56,7 +56,7 @@ export function LoginForm() {
           <button
             type="button"
             onClick={() => toast('Password reset coming soon')}
-            className="text-xs font-medium text-primary-700 hover:underline dark:text-primary-200"
+            className="text-xs font-medium text-primary hover:underline"
           >
             Forgot password?
           </button>
@@ -76,7 +76,7 @@ export function LoginForm() {
             type="button"
             onClick={() => setShowPassword((s) => !s)}
             aria-label={showPassword ? 'Hide password' : 'Show password'}
-            className="absolute right-2 top-1/2 -translate-y-1/2 rounded-md p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground"
+            className="absolute right-2 top-1/2 -translate-y-1/2 rounded-md p-1.5 text-muted-foreground hover:bg-accent hover:text-foreground"
           >
             {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
           </button>

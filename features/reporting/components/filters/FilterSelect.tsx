@@ -48,7 +48,7 @@ export function FilterSelect({
               type="button"
               onClick={() => onChange?.(opt)}
               className={cn(
-                'flex w-full items-center rounded-sm px-3 py-2 text-left text-sm transition-colors hover:bg-muted',
+                'flex w-full items-center rounded-sm px-3 py-2 text-left text-sm transition-colors hover:bg-accent',
                 value === opt && 'bg-accent font-medium text-primary-700'
               )}
             >

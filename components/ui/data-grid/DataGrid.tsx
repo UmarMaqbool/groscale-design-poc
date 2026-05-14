@@ -9,9 +9,8 @@ import {
   type ValueGetterParams,
 } from 'ag-grid-community'
 import { AgGridReact } from 'ag-grid-react'
-import { useTheme } from 'next-themes'
 import { cn } from '@/lib/utils'
-import { dataGridDarkTheme, dataGridLightTheme } from './theme'
+import { dataGridTheme } from './theme'
 import './data-grid.css'
 
 ModuleRegistry.registerModules([AllCommunityModule])
@@ -51,8 +50,6 @@ export interface DataGridProps<TRow extends object> {
   rowClassName?: (row: TRow) => string | undefined
   /** Pin first N columns (e.g. 1 for action menu, 2 for action+checkbox). */
   pinnedLeft?: number
-  /** Force theme (defaults to following next-themes resolved theme). */
-  forceTheme?: 'light' | 'dark'
 }
 
 export function DataGrid<TRow extends object>({
@@ -64,14 +61,9 @@ export function DataGrid<TRow extends object>({
   height = 'auto',
   rowClassName,
   pinnedLeft = 0,
-  forceTheme,
 }: DataGridProps<TRow>) {
-  const { resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   useEffect(() => setMounted(true), [])
-
-  const isDark = forceTheme ? forceTheme === 'dark' : resolvedTheme === 'dark'
-  const theme = isDark ? dataGridDarkTheme : dataGridLightTheme
 
   const gridRef = useRef<AgGridReact<TRow>>(null)
 
@@ -174,7 +166,7 @@ export function DataGrid<TRow extends object>({
           ) : (
             <AgGridReact<TRow>
               ref={gridRef}
-              theme={theme}
+              theme={dataGridTheme}
               rowData={rows}
               columnDefs={columnDefs}
               defaultColDef={defaultColDef}
@@ -189,7 +181,7 @@ export function DataGrid<TRow extends object>({
             />
           )
         ) : (
-          <div className="h-12 w-full bg-[#fafafb]" aria-hidden />
+          <div className="h-12 w-full bg-card-alt" aria-hidden />
         )}
       </div>
     </div>

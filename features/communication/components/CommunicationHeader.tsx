@@ -47,7 +47,7 @@ export function CommunicationHeader() {
                   'rounded-md border px-4 py-1.5 text-sm transition-colors',
                   isActive
                     ? 'border-primary bg-primary text-primary-foreground'
-                    : 'border-border bg-card text-foreground hover:bg-muted'
+                    : 'border-border bg-card text-foreground hover:bg-accent'
                 )}
               >
                 {tab.label}

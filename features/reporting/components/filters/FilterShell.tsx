@@ -32,7 +32,7 @@ export function FilterShell({ children, footer }: FilterShellProps) {
           <SheetTitle className="text-xl font-bold text-foreground">Filter by</SheetTitle>
           <SheetClose
             aria-label="Close filters"
-            className="flex h-7 w-7 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            className="flex h-7 w-7 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
           >
             <X className="h-4 w-4" />
           </SheetClose>

@@ -13,10 +13,10 @@ const STATUS_LABEL: Record<TrackingStatus, string> = {
 }
 
 const STATUS_TONE: Record<TrackingStatus, string> = {
-  scheduled: 'bg-[#f9fafb] text-[#475467]',
-  out_for_delivery: 'bg-[#fff7ed] text-[#c2410c]',
-  delivered: 'bg-[#ebf3e9] text-[#06402B]',
-  unsuccessful: 'bg-[#fef2f2] text-[#b91c1c]',
+  scheduled: 'bg-muted text-muted-foreground',
+  out_for_delivery: 'bg-orange-50 text-orange-700',
+  delivered: 'bg-primary-100 text-primary-900',
+  unsuccessful: 'bg-red-50 text-red-700',
 }
 
 interface StatusCardProps {
@@ -27,12 +27,12 @@ export function StatusCard({ shipment }: StatusCardProps) {
   const [reason, setReason] = useState(shipment.reason ?? '')
 
   return (
-    <div className="rounded-[10px] border border-[#e5e7eb] bg-white p-4 lg:p-5">
+    <div className="rounded-[10px] border border-border bg-card p-4 lg:p-5">
       <div className="flex flex-col gap-5 lg:gap-6">
         {/* Status header — stacked tone pill on mobile */}
         <div className="flex items-start justify-between gap-4">
           <div className="flex flex-col gap-2 lg:gap-3.5">
-            <h2 className="text-lg font-bold leading-tight text-[#101828] lg:text-2xl">
+            <h2 className="text-lg font-bold leading-tight text-foreground lg:text-2xl">
               Status
             </h2>
             <span
@@ -49,19 +49,19 @@ export function StatusCard({ shipment }: StatusCardProps) {
               })
             }
             aria-label="More info"
-            className="flex size-10 shrink-0 items-center justify-center rounded-md border border-[#e5e7eb] bg-[#f9fafb] transition-colors hover:bg-[#eef0f2] lg:size-[46px]"
+            className="flex size-10 shrink-0 items-center justify-center rounded-md border border-border bg-muted text-muted-foreground transition-colors hover:bg-accent lg:size-[46px]"
           >
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="12" cy="12" r="10" stroke="#4A5565" strokeWidth="1.5" />
-              <path d="M12 8V12.5" stroke="#4A5565" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M12 15.99V16" stroke="#4A5565" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+              <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
+              <path d="M12 8V12.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M12 15.99V16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </button>
         </div>
 
         {/* Map — placed first on mobile for visual focus, side-by-side on desktop */}
         <div className="flex flex-col gap-5 lg:flex-row lg:gap-6">
-          <div className="order-1 h-[220px] flex-1 overflow-hidden rounded-[10px] border border-[#e5e7eb] sm:h-[280px] lg:order-2 lg:h-[320px]">
+          <div className="order-1 h-[220px] flex-1 overflow-hidden rounded-[10px] border border-border sm:h-[280px] lg:order-2 lg:h-[320px]">
             <TrackingMap
               pickup={shipment.pickup}
               dropoff={shipment.dropoff}
@@ -84,7 +84,7 @@ export function StatusCard({ shipment }: StatusCardProps) {
 
             {shipment.status === 'unsuccessful' ? (
               <div className="flex flex-col gap-1.5">
-                <label htmlFor="reason" className="text-sm text-[#667085]">
+                <label htmlFor="reason" className="text-sm text-muted-foreground">
                   Reason
                 </label>
                 <textarea
@@ -92,7 +92,7 @@ export function StatusCard({ shipment }: StatusCardProps) {
                   value={reason}
                   onChange={(e) => setReason(e.target.value)}
                   placeholder="Reason here..."
-                  className="min-h-[88px] w-full resize-none rounded-md border border-[#d0d5dd] bg-white px-3.5 py-2.5 text-base text-[#475467] placeholder:text-[#98a2b3] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#79b26b]"
+                  className="min-h-[88px] w-full resize-none rounded-md border border-gray-300 bg-card px-3.5 py-2.5 text-base text-muted-foreground placeholder:text-tertiary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                 />
               </div>
             ) : null}
@@ -106,8 +106,8 @@ export function StatusCard({ shipment }: StatusCardProps) {
 function Field({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex flex-1 flex-col gap-1">
-      <p className="text-xs leading-tight text-[#667085] lg:text-sm">{label}</p>
-      <p className="text-base leading-snug text-[#475467] lg:text-lg">{value}</p>
+      <p className="text-xs leading-tight text-muted-foreground lg:text-sm">{label}</p>
+      <p className="text-base leading-snug text-foreground lg:text-lg">{value}</p>
     </div>
   )
 }

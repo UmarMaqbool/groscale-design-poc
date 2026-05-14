@@ -35,7 +35,7 @@ export function SmsHistory() {
           <button
             type="button"
             onClick={() => toast('Viewing SMS Campaigns')}
-            className="h-9 rounded-md border border-border bg-card px-3 text-sm text-foreground transition-colors hover:bg-muted"
+            className="h-9 rounded-md border border-border bg-card px-3 text-sm text-foreground transition-colors hover:bg-accent"
           >
             View SMS Campaigns
           </button>
@@ -84,7 +84,7 @@ export function SmsHistory() {
             <button
               type="button"
               onClick={() => toast.success('Exporting message logs')}
-              className="h-9 rounded-md border border-border bg-card px-3 text-sm text-foreground transition-colors hover:bg-muted"
+              className="h-9 rounded-md border border-border bg-card px-3 text-sm text-foreground transition-colors hover:bg-accent"
             >
               Export Now
             </button>

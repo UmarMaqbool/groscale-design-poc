@@ -66,7 +66,7 @@ export function PackagesTable() {
               <button
                 type="button"
                 aria-label="Row actions"
-                className="flex h-6 w-6 items-center justify-center rounded text-muted-foreground hover:bg-muted hover:text-foreground"
+                className="flex h-6 w-6 items-center justify-center rounded text-muted-foreground hover:bg-accent hover:text-foreground"
               >
                 <MoreVertical className="h-4 w-4" />
               </button>

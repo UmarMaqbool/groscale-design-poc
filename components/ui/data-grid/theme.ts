@@ -1,56 +1,45 @@
 import { themeQuartz } from 'ag-grid-community'
 
 /**
- * Pixel-perfect match of the legacy ReportTable / PackagesTable styling:
- *   header bg #fafafb · header height 48 · row height 42 ·
- *   cell padding 16 · border #e5e7eb · header text-foreground / 700 ·
- *   body text #6A7282 · font Helvetica Neue 14
+ * AG Grid theme — reads design tokens via CSS variables so it switches
+ * automatically when `.dark` is toggled on `<html>`. No separate light/dark
+ * theme objects to maintain.
  *
- * Header has vertical dividers between columns (1px @ 50% height).
- * Body rows have horizontal dividers only.
+ * Token mapping:
+ *   backgroundColor          → --card             (row surface)
+ *   foregroundColor          → --muted-foreground (body cell text)
+ *   headerTextColor          → --foreground       (header label text)
+ *   headerBackgroundColor    → --card-alt         (slightly raised header)
+ *   rowHoverColor            → --accent           (unified hover surface)
+ *   selectedRowBackgroundColor → --primary-100    (brand soft-green tint)
+ *   borderColor              → --border           (subtle divider)
+ *
+ * Add new params here — never inline a hex value at the call-site.
  */
-const sharedParams = {
-  fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
+export const dataGridTheme = themeQuartz.withParams({
+  fontFamily: 'var(--font-sans), Inter, "Helvetica Neue", Helvetica, Arial, sans-serif',
   fontSize: 14,
   rowHeight: 42,
   headerHeight: 48,
   cellHorizontalPadding: 16,
-  headerFontWeight: 700 as const,
+  headerFontWeight: 700,
   spacing: 8,
   wrapperBorder: false,
   columnBorder: false,
-  headerColumnBorderHeight: '50%' as const,
+  headerColumnBorderHeight: '50%',
   // Hide the resize-handle indicator so we only show the half-height
   // `headerColumnBorder` between columns. Drag-to-resize still works.
   headerColumnResizeHandleColor: 'transparent',
-} satisfies Record<string, unknown>
 
-export const dataGridLightTheme = themeQuartz.withParams({
-  ...sharedParams,
-  backgroundColor: '#ffffff',
-  foregroundColor: '#6A7282',
-  headerTextColor: '#101828',
-  headerBackgroundColor: '#fafafb',
-  oddRowBackgroundColor: '#ffffff',
-  rowHoverColor: 'rgba(243, 244, 246, 0.55)',
-  selectedRowBackgroundColor: 'rgba(225, 239, 222, 0.4)',
-  borderColor: '#e5e7eb',
-  headerRowBorder: { style: 'solid', width: 1, color: '#e5e7eb' },
-  rowBorder: { style: 'solid', width: 1, color: '#e5e7eb' },
-  headerColumnBorder: { style: 'solid', width: 1, color: '#e5e7eb' },
-})
-
-export const dataGridDarkTheme = themeQuartz.withParams({
-  ...sharedParams,
-  backgroundColor: 'hsl(217 22% 13%)',
-  foregroundColor: 'hsl(218 11% 65%)',
-  headerTextColor: 'hsl(0 0% 98%)',
-  headerBackgroundColor: 'hsl(217 22% 16%)',
-  oddRowBackgroundColor: 'hsl(217 22% 13%)',
-  rowHoverColor: 'hsl(217 22% 18%)',
-  selectedRowBackgroundColor: 'hsl(109 38% 18%)',
-  borderColor: 'hsl(217 19% 20%)',
-  headerRowBorder: { style: 'solid', width: 1, color: 'hsl(217 19% 20%)' },
-  rowBorder: { style: 'solid', width: 1, color: 'hsl(217 19% 20%)' },
-  headerColumnBorder: { style: 'solid', width: 1, color: 'hsl(217 19% 20%)' },
+  backgroundColor: 'hsl(var(--card))',
+  foregroundColor: 'hsl(var(--muted-foreground))',
+  headerTextColor: 'hsl(var(--foreground))',
+  headerBackgroundColor: 'hsl(var(--card-alt))',
+  oddRowBackgroundColor: 'hsl(var(--card))',
+  rowHoverColor: 'hsl(var(--accent))',
+  selectedRowBackgroundColor: 'hsl(var(--primary-100))',
+  borderColor: 'hsl(var(--border))',
+  headerRowBorder: { style: 'solid', width: 1, color: 'hsl(var(--border))' },
+  rowBorder: { style: 'solid', width: 1, color: 'hsl(var(--border))' },
+  headerColumnBorder: { style: 'solid', width: 1, color: 'hsl(var(--border))' },
 })

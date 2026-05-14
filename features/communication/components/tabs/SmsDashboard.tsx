@@ -61,7 +61,7 @@ function DashboardCard({
         <button
           type="button"
           onClick={onExport}
-          className="h-9 rounded-md border border-border bg-card px-3 text-sm text-foreground transition-colors hover:bg-muted"
+          className="h-9 rounded-md border border-border bg-card px-3 text-sm text-foreground transition-colors hover:bg-accent"
         >
           Export Now
         </button>

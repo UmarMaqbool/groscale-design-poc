@@ -8,7 +8,7 @@ const TrackingMapView = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="flex h-full w-full items-center justify-center bg-[#e9eef1] text-sm text-muted-foreground">
+      <div className="flex h-full w-full items-center justify-center bg-muted text-sm text-muted-foreground">
         Loading map…
       </div>
     ),

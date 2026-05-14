@@ -86,7 +86,7 @@ export function PackageDetailsFilters() {
           <button
             type="button"
             onClick={handleClear}
-            className="h-10 w-full rounded-md border border-input bg-card text-sm text-foreground transition-colors hover:bg-muted"
+            className="h-10 w-full rounded-md border border-input bg-card text-sm text-foreground transition-colors hover:bg-accent"
           >
             Clear All
           </button>

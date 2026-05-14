@@ -32,7 +32,7 @@ export function AnalyticsHeader() {
           <DropdownMenuTrigger asChild>
             <Button
               variant="outline"
-              className="h-9 gap-2 border-border bg-card text-sm font-normal text-foreground hover:bg-muted"
+              className="h-9 gap-2 border-border bg-card text-sm font-normal text-foreground hover:bg-accent"
             >
               <Globe className="h-4 w-4 text-muted-foreground" />
               {region}
