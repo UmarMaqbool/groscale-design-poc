@@ -35,6 +35,8 @@ export const dataGridTheme = themeQuartz.withParams({
   foregroundColor: 'hsl(var(--muted-foreground))',
   headerTextColor: 'hsl(var(--foreground))',
   headerBackgroundColor: 'hsl(var(--card-alt))',
+  headerCellHoverBackgroundColor: 'hsl(var(--accent))',
+  headerCellMovingBackgroundColor: 'hsl(var(--accent))',
   oddRowBackgroundColor: 'hsl(var(--card))',
   rowHoverColor: 'hsl(var(--accent))',
   selectedRowBackgroundColor: 'hsl(var(--primary-100))',
@@ -42,4 +44,5 @@ export const dataGridTheme = themeQuartz.withParams({
   headerRowBorder: { style: 'solid', width: 1, color: 'hsl(var(--border))' },
   rowBorder: { style: 'solid', width: 1, color: 'hsl(var(--border))' },
   headerColumnBorder: { style: 'solid', width: 1, color: 'hsl(var(--border))' },
+  iconButtonHoverBackgroundColor: 'transparent',
 })

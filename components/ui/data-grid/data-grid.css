@@ -45,3 +45,23 @@
 .gro-data-grid[data-empty='true'] {
   min-height: 96px;
 }
+
+/* AG Grid showcase parity — headers behave like buttons.
+ *   - cursor:pointer signals the click-to-sort affordance.
+ *   - filter & menu icons stay visible (no fade-in on hover) so the user
+ *     can find them at a glance.
+ *   - column move/drag still works because we only style the label area. */
+.gro-data-grid .ag-header-cell:not(.ag-header-cell-no-header) {
+  cursor: pointer;
+}
+
+.gro-data-grid .ag-header-cell .ag-header-cell-menu-button,
+.gro-data-grid .ag-header-cell .ag-header-icon.ag-header-cell-filter-button {
+  opacity: 1 !important;
+  transition: none !important;
+}
+
+/* Center vertically the menu/filter icons next to the label. */
+.gro-data-grid .ag-header-cell .ag-header-cell-menu-button {
+  margin-left: 4px;
+}

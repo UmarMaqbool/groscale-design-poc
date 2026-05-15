@@ -28,7 +28,7 @@ export function FilterSelect({
         <PopoverTrigger asChild>
           <button
             type="button"
-            className="flex h-10 w-full items-center justify-between gap-2 rounded-md border border-input bg-card px-3 text-sm text-foreground hover:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            className="flex h-10 w-full items-center justify-between gap-2 rounded-md border border-input bg-card px-3 text-sm text-foreground focus-visible:outline-none focus-visible:border-[#101828]"
           >
             <div className="flex items-center gap-2">
               {variant === 'date' ? (

@@ -1,31 +1,20 @@
+import Image from 'next/image'
 import { cn } from '@/lib/utils'
 
 /**
  * Brand mark — the green hex icon, on its own.
- * Uses `currentColor` so the parent's text-color token controls the tint.
- * Wrap in `text-primary` (default) to render in brand green.
+ * Sourced from `public/logo-mark.svg` (Figma export). Native ratio 44×38.
  */
 export function LogoMark({ className }: { className?: string }) {
   return (
-    <svg
-      viewBox="0 0 32 32"
-      fill="none"
-      className={cn('text-primary', className)}
-      aria-hidden
-    >
-      <path
-        d="M16 2.5 L27.5 9 L27.5 23 L16 29.5 L4.5 23 L4.5 9 Z"
-        stroke="currentColor"
-        strokeWidth="2.5"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M16 10 L22 13.25 L22 19.75 L16 23 L10 19.75 L10 13.25 Z"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinejoin="round"
-      />
-    </svg>
+    <Image
+      src="/logo-mark.svg"
+      alt="GroScale"
+      width={44}
+      height={38}
+      priority
+      className={cn(className)}
+    />
   )
 }
 
@@ -42,13 +31,13 @@ export function LogoMark({ className }: { className?: string }) {
 export function Logo({
   collapsed = false,
   className,
-}: {
+}: Readonly<{
   collapsed?: boolean
   className?: string
-}) {
+}>) {
   return (
     <div className={cn('flex items-center gap-2', className)}>
-      <LogoMark className="h-7 w-7 shrink-0" />
+      <LogoMark className="h-7 w-auto shrink-0" />
       {!collapsed && (
         <span className="text-xl font-bold leading-none tracking-tight">
           <span className="text-foreground">Gro</span>

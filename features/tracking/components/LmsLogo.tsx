@@ -17,7 +17,7 @@ export function LmsLogo({ className, colorClassName = 'bg-primary' }: LmsLogoPro
       role="img"
       aria-label="Last Mile Solutions"
       className={cn(
-        'h-[74px] w-[313.7px] [mask-image:url(/tracking/lms-logo-mask.png)] [mask-size:100%_100%] [mask-repeat:no-repeat]',
+        'h-[74px] w-[313.7px] max-[475px]:h-[69px] max-[475px]:w-[292.6px] [mask-image:url(/tracking/lms-logo-mask.png)] [mask-size:100%_100%] [mask-repeat:no-repeat]',
         colorClassName,
         className
       )}

@@ -30,7 +30,7 @@ export function RangeSelect({
         <button
           type="button"
           className={cn(
-            'flex h-10 items-center justify-between gap-2 rounded-md border border-input bg-card px-3 text-sm text-foreground hover:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
+            'flex h-10 items-center justify-between gap-2 rounded-md border border-input bg-card px-3 text-sm text-foreground focus-visible:outline-none focus-visible:border-[#101828]',
             className
           )}
         >

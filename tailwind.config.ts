@@ -50,7 +50,7 @@ const config: Config = {
         // === Surface ====================================================
         // Layered backgrounds. Hierarchy (dark mode):
         //   background  → deepest page bg          #0a0a0a
-        //   card        → topbar, cards            #0d1f15
+        //   card        → topbar, cards            #101011
         //   card-alt    → neutral (non-themed)     #111111
         //   accent      → hover / active surface   #1f241f
         // ----------------------------------------------------------------

@@ -1,6 +1,6 @@
 'use client'
 
-import { LmsLogo, TrackingMap, TrackOrderForm, FeatureCards } from '@/features/tracking'
+import { LmsLogo, TrackingMap, TrackOrderForm } from '@/features/tracking'
 import { trackingShipments } from '@/mocks/tracking'
 
 export default function TrackingLandingPage() {
@@ -36,16 +36,7 @@ export default function TrackingLandingPage() {
             </p>
           </header>
 
-          <div className="flex flex-col gap-6">
-            <TrackOrderForm />
-
-            <div className="flex flex-col items-center gap-4">
-              <p className="w-full text-center text-sm font-medium text-foreground lg:text-base">
-                Or
-              </p>
-              <FeatureCards />
-            </div>
-          </div>
+          <TrackOrderForm />
 
           <footer className="flex flex-col items-center gap-1 text-center text-xs text-foreground lg:text-base">
             <p>© 2025 GroScale Last Mile Solutions. All rights reserved.</p>

@@ -95,6 +95,11 @@ export function DataGrid<TRow extends object>({
         resizable: !isPinned,
         suppressMovable: isPinned,
         lockPosition: isPinned ? 'left' : undefined,
+        // Pinned utility columns (action menu, checkbox) should never sort or
+        // open a filter menu — they aren't data.
+        sortable: !isPinned,
+        filter: !isPinned,
+        suppressHeaderMenuButton: isPinned,
         cellRenderer,
         valueGetter,
         pinned: isPinned ? 'left' : undefined,
@@ -118,10 +123,16 @@ export function DataGrid<TRow extends object>({
 
   const defaultColDef = useMemo<ColDef<TRow>>(
     () => ({
-      sortable: false,
+      sortable: true,
       resizable: true,
       suppressMovable: false,
-      suppressHeaderMenuButton: true,
+      filter: true,
+      floatingFilter: false,
+      // Always-visible kebab + filter icons — matches the AG Grid showcase.
+      // Default behaviour fades them in on hover; this pins them.
+      suppressHeaderMenuButton: false,
+      suppressHeaderFilterButton: false,
+      suppressMenuHide: true,
     }),
     []
   )
