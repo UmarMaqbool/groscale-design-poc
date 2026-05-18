@@ -73,9 +73,9 @@
     --warning: 38 92% 55%;
     --warning-foreground: 0 0% 100%;
 
-    --border: 220 43% 11%;          /* #101828 — single border color across the app */
-    --border-neutral: 220 43% 11%;  /* #101828 — neutral divider */
-    --input: 220 43% 11%;           /* #101828 — input border */
+    --border: 220 13% 91%;          /* #E4E7EB — subtle light gray (main) */
+    --border-neutral: 220 13% 91%;  /* #E4E7EB — neutral divider */
+    --input: 220 13% 91%;           /* #E4E7EB — input border */
     --ring: 109 31% 56%;
 
     /* ─── Charts — multi-color categorical (per Figma) ─────────────── */
@@ -100,16 +100,18 @@
 
   /* ───────────────────────────────────────────────────────────────────────
    * DARK — .dark
-   * Source: Marketplace MVP spec (markdown) > portal feedback for gaps.
-   * Three-layer surface hierarchy:
-   *   background  (deepest, page bg)        #0a0a0a
-   *   card        (topbar, surface cards)   #101011
-   *   accent      (hover / active surface)  #1f241f   ← portal feedback
+   * Colorway 3 (green + black): black foundation with the green surface
+   * ramp shifted up one layer.
+   * Four-layer surface hierarchy:
+   *   Layer 1  background / sidebar       #000000   ← deepest
+   *   Layer 2  card / popover / topbar    #0A140E
+   *   Layer 3  card-alt / muted           #0E1812
+   *   Layer 4  accent (hover) / borders   #1C3123
    * ─────────────────────────────────────────────────────────────────────── */
   .dark {
     /* ─── Brand: GroScale Green ─────────────────────────────────────── */
     --primary: 109 31% 56%;         /* #79B26B — brand stays the same */
-    --primary-foreground: 0 0% 4%;  /* #0a0a0a — for buttons on green */
+    --primary-foreground: 0 0% 0%;  /* #000000 — for buttons on green */
     --primary-bright: 140 60% 53%;  /* #3ecf6e — hover / active green */
 
     /* Marketing ramp — kept for hero / display surfaces */
@@ -124,46 +126,46 @@
     --primary-800: 109 30% 84%;
     --primary-900: 110 30% 92%;
 
-    /* ─── Surface (three-layer hierarchy) ───────────────────────────── */
-    --background: 0 0% 4%;          /* #0a0a0a — deepest page bg */
+    /* ─── Surface (four-layer hierarchy) ────────────────────────────── */
+    --background: 0 0% 0%;          /* #000000 — Layer 1, page bg */
     --foreground: 0 0% 100%;        /* #ffffff */
 
-    --card: 240 3% 6.5%;            /* #101011 — topbar, cards (precise HSL — 6% rounds to #0F0F10) */
+    --card: 144 33% 6%;             /* #0A140E — Layer 2, topbar / cards */
     --card-foreground: 0 0% 100%;
-    --card-alt: 0 0% 7%;            /* #111111 — neutral, non-themed cards */
+    --card-alt: 144 26% 7%;         /* #0E1812 — Layer 3, alt surface */
 
-    --popover: 240 3% 6.5%;         /* matches card — #101011 */
+    --popover: 144 33% 6%;          /* #0A140E — matches card */
     --popover-foreground: 0 0% 100%;
 
     /* `accent` IS the unified hover surface. Use it via bg-accent / */
     /* hover:bg-accent for nav, menu items, list rows — consistency.   */
-    --accent: 120 7% 13%;           /* #1f241f — portal feedback */
+    --accent: 140 27% 15%;          /* #1C3123 — Layer 4, hover surface */
     --accent-foreground: 0 0% 100%;
 
     /* ─── Text ──────────────────────────────────────────────────────── */
-    --muted: 0 0% 7%;               /* uses card-alt as muted surface */
-    --muted-foreground: 140 7% 68%; /* #a8b3ad — body / secondary text */
-    --text-tertiary: 140 4% 44%;    /* #6b756f — captions, metadata */
+    --muted: 144 26% 7%;            /* #0E1812 — Layer 3 muted surface */
+    --muted-foreground: 140 12% 72%; /* readable secondary text on green layers */
+    --text-tertiary: 140 8% 52%;    /* captions, metadata */
 
     /* ─── Form ──────────────────────────────────────────────────────── */
-    --input: 220 43% 11%;           /* #101828 — input border */
-    --border: 220 43% 11%;          /* #101828 — single border color across the app */
-    --border-neutral: 220 43% 11%;  /* #101828 — neutral divider */
-    --ring: 140 60% 53%;            /* #3ecf6e — focus ring (spec §5) */
+    --input: 140 27% 15%;           /* #1C3123 — input border (Layer 4) */
+    --border: 140 27% 15%;          /* #1C3123 — single border color */
+    --border-neutral: 140 27% 15%;  /* #1C3123 — neutral divider */
+    --ring: 140 60% 53%;            /* #3ecf6e — focus ring */
 
     /* ─── Semantic ──────────────────────────────────────────────────── */
-    --secondary: 217 19% 22%;
+    --secondary: 140 27% 15%;       /* #1C3123 — Layer 4 */
     --secondary-foreground: 0 0% 98%;
 
     --destructive: 0 70% 55%;
     --destructive-foreground: 0 0% 98%;
 
     --success: 141 65% 50%;
-    --success-foreground: 220 26% 9%;
+    --success-foreground: 0 0% 0%;
     --success-soft: 142 71% 85%;
 
     --warning: 38 85% 55%;
-    --warning-foreground: 220 26% 9%;
+    --warning-foreground: 0 0% 0%;
 
     /* ─── Charts — monochromatic green ramp (per Figma dark) ───────── */
     --chart-1: 109 31% 82%;
@@ -172,14 +174,14 @@
     --chart-4: 109 30% 50%;
     --chart-5: 109 25% 39%;
 
-    /* ─── Sidebar — pure black, its own visual zone ────────────────── */
-    --sidebar: 0 0% 0%;             /* #000000 */
+    /* ─── Sidebar — Layer 1 (pure black), its own visual zone ──────── */
+    --sidebar: 0 0% 0%;             /* #000000 — Layer 1 */
     --sidebar-foreground: 0 0% 100%;
     --sidebar-primary: 109 31% 56%; /* brand green for the logo icon */
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 120 7% 13%;   /* #1f241f — same as global hover */
+    --sidebar-accent: 140 27% 15%;  /* #1C3123 — Layer 4 hover, matches global */
     --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 0 0% 8%;      /* near-black separator */
+    --sidebar-border: 144 33% 6%;   /* #0A140E — Layer 2 separator */
     --sidebar-ring: 140 60% 53%;
   }
 }
@@ -247,9 +249,9 @@
     --warning: 38 92% 55%;
     --warning-foreground: 0 0% 100%;
 
-    --border: 220 43% 11%;
-    --border-neutral: 220 43% 11%;
-    --input: 220 43% 11%;
+    --border: 220 13% 91%;
+    --border-neutral: 220 13% 91%;
+    --input: 220 13% 91%;
     --ring: 109 31% 56%;
 
     color-scheme: light;
