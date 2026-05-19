@@ -100,16 +100,21 @@
 
   /* ───────────────────────────────────────────────────────────────────────
    * DARK — .dark
-   * Colorway 3 (green + black): black foundation with the green surface
-   * ramp shifted up one layer.
-   * Four-layer surface hierarchy:
-   *   Layer 1  background / sidebar       #000000   ← deepest
-   *   Layer 2  card / popover / topbar    #0A140E
-   *   Layer 3  card-alt / muted           #0E1812
-   *   Layer 4  accent (hover) / borders   #1C3123
+   *
+   * Four-layer surface system. Each layer has a CLEAR semantic role:
+   *   Layer 1  sidebar / topbar         ← deepest, frames the app
+   *   Layer 2  page background          ← canvas behind content
+   *   Layer 3  cards, popovers          ← elevated content surfaces
+   *   Layer 4  hover, inactive, border  ← interactive & dividers
+   *
+   * Layer values come from a "colorway" — see .dark.colorway-* below.
+   * The boot script in app/layout.tsx applies .colorway-1 (blue + black) by
+   * default; the user can switch via the palette picker in the topbar.
+   * The base .dark block carries fallback values used if no colorway class
+   * is present.
    * ─────────────────────────────────────────────────────────────────────── */
   .dark {
-    /* ─── Brand: GroScale Green ─────────────────────────────────────── */
+    /* ─── Brand: GroScale Green (shared across all colorways) ───────── */
     --primary: 109 31% 56%;         /* #79B26B — brand stays the same */
     --primary-foreground: 0 0% 0%;  /* #000000 — for buttons on green */
     --primary-bright: 140 60% 53%;  /* #3ecf6e — hover / active green */
@@ -126,37 +131,55 @@
     --primary-800: 109 30% 84%;
     --primary-900: 110 30% 92%;
 
-    /* ─── Surface (four-layer hierarchy) ────────────────────────────── */
-    --background: 0 0% 0%;          /* #000000 — Layer 1, page bg */
-    --foreground: 0 0% 100%;        /* #ffffff */
+    /* ─── 4-layer palette — fallback (matches Colorway 3 hexes) ────── */
+    /* HSL uses 2-decimal precision so values round-trip back to the   */
+    /* exact target hex. Coarser integers drift by 1-2 RGB units.      */
+    --layer-1: 0 0% 0%;                  /* #000000 */
+    --layer-2: 144 33.33% 5.88%;         /* #0A140E */
+    --layer-3: 144 26.32% 7.45%;         /* #0E1812 */
+    --layer-4: 140 27.27% 15.10%;        /* #1C3123 */
 
-    --card: 144 33% 6%;             /* #0A140E — Layer 2, topbar / cards */
+    /* Tinted neutrals — overridden per colorway so secondary text picks */
+    /* up the hue of the palette (green/blue/etc).                       */
+    --muted-foreground: 140 12% 72%;
+    --text-tertiary: 140 8% 52%;
+
+    /* ─── Surface tokens map to layers ──────────────────────────────── */
+    --background: var(--layer-2);   /* page canvas */
+    --foreground: 0 0% 100%;
+
+    --card: var(--layer-3);         /* elevated content */
     --card-foreground: 0 0% 100%;
-    --card-alt: 144 26% 7%;         /* #0E1812 — Layer 3, alt surface */
+    --card-alt: var(--layer-3);
 
-    --popover: 144 33% 6%;          /* #0A140E — matches card */
+    --popover: var(--layer-3);
     --popover-foreground: 0 0% 100%;
 
     /* `accent` IS the unified hover surface. Use it via bg-accent / */
     /* hover:bg-accent for nav, menu items, list rows — consistency.   */
-    --accent: 140 27% 15%;          /* #1C3123 — Layer 4, hover surface */
+    --accent: var(--layer-4);
     --accent-foreground: 0 0% 100%;
 
-    /* ─── Text ──────────────────────────────────────────────────────── */
-    --muted: 144 26% 7%;            /* #0E1812 — Layer 3 muted surface */
-    --muted-foreground: 140 12% 72%; /* readable secondary text on green layers */
-    --text-tertiary: 140 8% 52%;    /* captions, metadata */
-
-    /* ─── Form ──────────────────────────────────────────────────────── */
-    --input: 140 27% 15%;           /* #1C3123 — input border (Layer 4) */
-    --border: 140 27% 15%;          /* #1C3123 — single border color */
-    --border-neutral: 140 27% 15%;  /* #1C3123 — neutral divider */
-    --ring: 140 60% 53%;            /* #3ecf6e — focus ring */
-
-    /* ─── Semantic ──────────────────────────────────────────────────── */
-    --secondary: 140 27% 15%;       /* #1C3123 — Layer 4 */
+    --muted: var(--layer-4);
+    --secondary: var(--layer-4);
     --secondary-foreground: 0 0% 98%;
 
+    --input: var(--layer-4);
+    --border: var(--layer-4);
+    --border-neutral: var(--layer-4);
+    --ring: 140 60% 53%;            /* brand-bright focus ring */
+
+    /* ─── Sidebar — Layer 1, its own visual zone ────────────────────── */
+    --sidebar: var(--layer-1);
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 109 31% 56%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: var(--layer-4);
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: var(--layer-2);
+    --sidebar-ring: 140 60% 53%;
+
+    /* ─── Semantic (shared) ─────────────────────────────────────────── */
     --destructive: 0 70% 55%;
     --destructive-foreground: 0 0% 98%;
 
@@ -173,16 +196,43 @@
     --chart-3: 109 31% 56%;
     --chart-4: 109 30% 50%;
     --chart-5: 109 25% 39%;
+  }
 
-    /* ─── Sidebar — Layer 1 (pure black), its own visual zone ──────── */
-    --sidebar: 0 0% 0%;             /* #000000 — Layer 1 */
-    --sidebar-foreground: 0 0% 100%;
-    --sidebar-primary: 109 31% 56%; /* brand green for the logo icon */
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 140 27% 15%;  /* #1C3123 — Layer 4 hover, matches global */
-    --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 144 33% 6%;   /* #0A140E — Layer 2 separator */
-    --sidebar-ring: 140 60% 53%;
+  /* ───────────────────────────────────────────────────────────────────────
+   * Dark mode colorway variants — override the 4-layer palette.
+   *
+   * Apply ONE alongside `.dark`, e.g.  <html class="dark colorway-1">
+   * The colorway selector in TopBar toggles these.
+   * ─────────────────────────────────────────────────────────────────────── */
+
+  /* Colorway 1 — Blue + Black */
+  .dark.colorway-1 {
+    --layer-1: 0 0% 0%;                  /* #000000 */
+    --layer-2: 233.33 29.03% 6.08%;      /* #0B0C14 */
+    --layer-3: 221.54 27.66% 9.22%;      /* #11151E */
+    --layer-4: 224 21.74% 13.53%;        /* #1B1F2A */
+    --muted-foreground: 222 14% 72%;
+    --text-tertiary: 222 10% 52%;
+  }
+
+  /* Colorway 2 — Green */
+  .dark.colorway-2 {
+    --layer-1: 144 33.33% 5.88%;         /* #0A140E */
+    --layer-2: 144 26.32% 7.45%;         /* #0E1812 */
+    --layer-3: 140 27.27% 15.10%;        /* #1C3123 */
+    --layer-4: 139.29 21.21% 25.88%;     /* #34503D */
+    --muted-foreground: 140 14% 75%;
+    --text-tertiary: 140 10% 55%;
+  }
+
+  /* Colorway 3 — Green + Black */
+  .dark.colorway-3 {
+    --layer-1: 0 0% 0%;                  /* #000000 */
+    --layer-2: 144 33.33% 5.88%;         /* #0A140E */
+    --layer-3: 144 26.32% 7.45%;         /* #0E1812 */
+    --layer-4: 140 27.27% 15.10%;        /* #1C3123 */
+    --muted-foreground: 140 12% 72%;
+    --text-tertiary: 140 8% 52%;
   }
 }
 
