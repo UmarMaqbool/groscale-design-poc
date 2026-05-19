@@ -205,14 +205,14 @@
    * The colorway selector in TopBar toggles these.
    * ─────────────────────────────────────────────────────────────────────── */
 
-  /* Colorway 1 — Blue + Black */
+  /* Colorway 1 — Pure Black */
   .dark.colorway-1 {
     --layer-1: 0 0% 0%;                  /* #000000 */
-    --layer-2: 233.33 29.03% 6.08%;      /* #0B0C14 */
-    --layer-3: 221.54 27.66% 9.22%;      /* #11151E */
-    --layer-4: 224 21.74% 13.53%;        /* #1B1F2A */
-    --muted-foreground: 222 14% 72%;
-    --text-tertiary: 222 10% 52%;
+    --layer-2: 0 0% 5.1%;                /* #0D0D0D */
+    --layer-3: 0 0% 7.45%;               /* #131313 */
+    --layer-4: 0 0% 10.2%;               /* #1A1A1A */
+    --muted-foreground: 0 0% 72%;
+    --text-tertiary: 0 0% 52%;
   }
 
   /* Colorway 2 — Green */
