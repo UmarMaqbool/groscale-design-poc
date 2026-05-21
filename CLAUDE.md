@@ -1,6 +1,8 @@
 # GroScale Design POC — Agent Instructions
 
 > Read this file first when resuming work. It captures everything needed to continue building the POC.
+>
+> **For design tokens, color tables, component anatomy, type scale, and every other styling detail, see [`DESIGN_GUIDELINES.md`](./DESIGN_GUIDELINES.md).** That doc is the source of truth for design. This file covers project layout, conventions, and resume-work workflow.
 
 ---
 
@@ -30,47 +32,24 @@ URL: https://www.figma.com/design/ERXAbJz6PK3gGdnktDdcqC/GroScale-Design
 | State (UI) | React Context per feature |
 | Toasts | **sonner** |
 | Theme | **next-themes** (light + dark, class strategy) |
-| Font | **Helvetica Neue** (system stack — matches Figma exactly) |
+| Font | **Inter** via `next/font/google` (weights 400/500/600/700) |
 
 **Node:** v24 / npm v11
 **Dev port:** **3002** (port 3000 has another process; do not change)
 
 ---
 
-## Design Tokens (from Figma)
+## Design Tokens & Styling
 
-All tokens live in `app/globals.css` as HSL CSS variables and are mapped in `tailwind.config.ts`.
+**See [`DESIGN_GUIDELINES.md`](./DESIGN_GUIDELINES.md) for the full reference** — every color (light + dark), the 4-layer dark surface system, typography scale, spacing, radius, shadows, component anatomy (every shadcn primitive with classes), chart palettes, and patterns.
 
-### Brand
-- **Primary - GroScale Green** `#79B26B` → `--primary` (HSL 109 31% 56%)
-- **Primary 100** `#EBF3E9` (Figma "Secondary BG Color") → `--primary-100`
-- Generated 50→900 scale around the brand color
-
-### Surface
-- **Background** `#EFEFEF` (Figma "BG Color") → `--background`
-- **Card** `#FFFFFF` → `--card`
-- **Foreground** `#1C2024` (Figma "text/foreground") → `--foreground`
-
-### Gray scale (matches Figma exactly)
-- `gray-100` `#F3F4F6` · `gray-200` `#E5E7EB` · `gray-300` `#D1D5DC`
-- `gray-400` `#99A1AF` · `gray-500` `#6A7282` · `gray-600` `#4A5565`
-- `gray-800` `#1E2939` · `gray-900` `#101828`
-
-### Status
-- **Success** `#05DF72` (Figma "green/400") → `--success`
-- **Success-soft** `#B9F8CF` (Figma "green/200") → `--success-soft`
-- **Destructive** `#E7000B` (Figma "red/600") → `--destructive`
-- **Warning** custom orange
-
-### Typography
-- **Font family:** `'Helvetica Neue', Helvetica, Arial, sans-serif`
-- **Scale (from Figma):** `xs/12 · sm/14 · base/16 · 2xl/24 · 3xl/30`
-- Display variants for marketing surfaces (`display-sm`, `display-md`, `display-lg`)
-
-### Misc
-- **Radius:** `--radius: 0.5rem` (cards use `rounded-[10px]` to match Figma)
-- **Shadow `card`:** subtle shadow used by all cards
-- **Spacing tokens for AG Grid (future):** `header-row: 48px`, `data-row: 42px`
+Quick orientation only:
+- Tokens live in `app/globals.css` as HSL channel-only CSS variables (`:root` = light, `.dark` = dark).
+- Tailwind maps them in `tailwind.config.ts` so utilities like `bg-primary/40` work.
+- Brand: GroScale Green `#79B26B` (`--primary`).
+- Light bg: `#EFEFEF` · Dark bg: pure-black 4-layer ramp (`#000` → `#0D0D0D` → `#131313` → `#1A1A1A`).
+- Font: Inter via `next/font/google` (see Known Inconsistency #1 in the guidelines about Helvetica references).
+- Single dark theme — no runtime palette switcher.
 
 ---
 
@@ -79,8 +58,8 @@ All tokens live in `app/globals.css` as HSL CSS variables and are mapped in `tai
 ```
 Groscale-design-poc/
 ├── app/
-│   ├── globals.css              ← All design tokens (CSS vars)
-│   ├── layout.tsx               ← Root layout (no font import — uses system Helvetica)
+│   ├── globals.css              ← All design tokens (CSS vars). See DESIGN_GUIDELINES.md
+│   ├── layout.tsx               ← Root layout (loads Inter from next/font/google)
 │   ├── page.tsx                 ← Dashboard (currently the only page)
 │   └── providers.tsx            ← QueryClientProvider + ThemeProvider + Toaster
 │
@@ -146,7 +125,7 @@ Groscale-design-poc/
 
 1. **No `any` type.** Use `unknown` or proper interfaces.
 2. **shadcn/ui first.** Always check `components/ui/` before creating a new primitive. Add via shadcn conventions (Radix + cva + cn).
-3. **No Helvetica fallbacks needed in components** — body sets the font in `globals.css`.
+3. **No font-family overrides in components** — Inter is set on `<html>` via the `--font-sans` CSS var.
 4. **No raw hex colors in components.** Use Tailwind tokens (`text-primary`, `bg-card`, `border-gray-200`). Hex is OK only for inline chart colors that mirror Figma.
 5. **All buttons must have working `onClick`.** This is an interactive POC — every clickable element must do something (toast at minimum).
 6. **Mock data only.** Do not introduce real API calls. Add to `mocks/{feature}.ts`.
@@ -282,7 +261,7 @@ Update `components/app/Sidebar.tsx` `navItems` only if a new top-level area is a
 3. **`sidebarStore.tsx` MUST stay `.tsx`** (it has JSX). Renaming back to `.ts` will 500 the dev server.
 4. **Clear `.next/` cache** if dev server returns 500 after a rename: `rm -rf .next` then restart.
 5. **Hydration:** `subDays(new Date(), 7)` runs once in state initializer — no SSR mismatch because `app/page.tsx` is `'use client'`.
-6. **Helvetica:** Web font fallback chain is fine. On macOS it picks system Helvetica. No font import needed.
+6. **Font:** Inter is loaded by `next/font/google` in `app/layout.tsx` as the `--font-sans` CSS var. Tailwind's default `font-sans` resolves to it.
 7. **shadcn animations** (`animate-in`, `fade-in-0`, `slide-in-from-top-2`) require `tailwindcss-animate` plugin — already configured.
 8. **The Figma file has NO design system page** — tokens were extracted from screen frames via `get_variable_defs`.
 9. **Marketplace mocks were removed.** Don't reintroduce carriers/shippers/shipments — this is the existing portal redesign, not a separate marketplace.

@@ -107,14 +107,11 @@
    *   Layer 3  cards, popovers          ← elevated content surfaces
    *   Layer 4  hover, inactive, border  ← interactive & dividers
    *
-   * Layer values come from a "colorway" — see .dark.colorway-* below.
-   * The boot script in app/layout.tsx applies .colorway-1 (blue + black) by
-   * default; the user can switch via the palette picker in the topbar.
-   * The base .dark block carries fallback values used if no colorway class
-   * is present.
+   * The four layers use a pure-black ramp (no hue tint). One dark theme,
+   * not switchable at runtime.
    * ─────────────────────────────────────────────────────────────────────── */
   .dark {
-    /* ─── Brand: GroScale Green (shared across all colorways) ───────── */
+    /* ─── Brand: GroScale Green ─────────────────────────────────────── */
     --primary: 109 31% 56%;         /* #79B26B — brand stays the same */
     --primary-foreground: 0 0% 0%;  /* #000000 — for buttons on green */
     --primary-bright: 140 60% 53%;  /* #3ecf6e — hover / active green */
@@ -131,18 +128,17 @@
     --primary-800: 109 30% 84%;
     --primary-900: 110 30% 92%;
 
-    /* ─── 4-layer palette — fallback (matches Colorway 3 hexes) ────── */
-    /* HSL uses 2-decimal precision so values round-trip back to the   */
-    /* exact target hex. Coarser integers drift by 1-2 RGB units.      */
-    --layer-1: 0 0% 0%;                  /* #000000 */
-    --layer-2: 144 33.33% 5.88%;         /* #0A140E */
-    --layer-3: 144 26.32% 7.45%;         /* #0E1812 */
-    --layer-4: 140 27.27% 15.10%;        /* #1C3123 */
+    /* ─── 4-layer palette — Pure Black ──────────────────────────────── */
+    /* HSL uses 2-decimal precision so values round-trip back to the    */
+    /* exact target hex. Coarser integers drift by 1-2 RGB units.       */
+    --layer-1: 0 0% 0%;             /* #000000 */
+    --layer-2: 0 0% 5.1%;           /* #0D0D0D */
+    --layer-3: 0 0% 7.45%;          /* #131313 */
+    --layer-4: 0 0% 10.2%;          /* #1A1A1A */
 
-    /* Tinted neutrals — overridden per colorway so secondary text picks */
-    /* up the hue of the palette (green/blue/etc).                       */
-    --muted-foreground: 140 12% 72%;
-    --text-tertiary: 140 8% 52%;
+    /* Neutrals — secondary text + caption / metadata */
+    --muted-foreground: 0 0% 72%;
+    --text-tertiary: 0 0% 52%;
 
     /* ─── Surface tokens map to layers ──────────────────────────────── */
     --background: var(--layer-2);   /* page canvas */
@@ -198,42 +194,6 @@
     --chart-5: 109 25% 39%;
   }
 
-  /* ───────────────────────────────────────────────────────────────────────
-   * Dark mode colorway variants — override the 4-layer palette.
-   *
-   * Apply ONE alongside `.dark`, e.g.  <html class="dark colorway-1">
-   * The colorway selector in TopBar toggles these.
-   * ─────────────────────────────────────────────────────────────────────── */
-
-  /* Colorway 1 — Pure Black */
-  .dark.colorway-1 {
-    --layer-1: 0 0% 0%;                  /* #000000 */
-    --layer-2: 0 0% 5.1%;                /* #0D0D0D */
-    --layer-3: 0 0% 7.45%;               /* #131313 */
-    --layer-4: 0 0% 10.2%;               /* #1A1A1A */
-    --muted-foreground: 0 0% 72%;
-    --text-tertiary: 0 0% 52%;
-  }
-
-  /* Colorway 2 — Green */
-  .dark.colorway-2 {
-    --layer-1: 144 33.33% 5.88%;         /* #0A140E */
-    --layer-2: 144 26.32% 7.45%;         /* #0E1812 */
-    --layer-3: 140 27.27% 15.10%;        /* #1C3123 */
-    --layer-4: 139.29 21.21% 25.88%;     /* #34503D */
-    --muted-foreground: 140 14% 75%;
-    --text-tertiary: 140 10% 55%;
-  }
-
-  /* Colorway 3 — Green + Black */
-  .dark.colorway-3 {
-    --layer-1: 0 0% 0%;                  /* #000000 */
-    --layer-2: 144 33.33% 5.88%;         /* #0A140E */
-    --layer-3: 144 26.32% 7.45%;         /* #0E1812 */
-    --layer-4: 140 27.27% 15.10%;        /* #1C3123 */
-    --muted-foreground: 140 12% 72%;
-    --text-tertiary: 140 8% 52%;
-  }
 }
 
 @layer base {
